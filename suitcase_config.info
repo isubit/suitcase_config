@@ -1,0 +1,8 @@
+name = suitcase_config
+description = An Omega 3 configuration for the suitcase subtheme
+core = 7.x
+package = Features
+version = 7.x-1.0
+project = suitcase_config
+dependencies[] = tb_megamenu
+features[features_api][] = api:2
