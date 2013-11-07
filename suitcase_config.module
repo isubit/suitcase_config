@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the suitcase_config feature.
  */
+
+include_once 'suitcase_config.features.inc';
