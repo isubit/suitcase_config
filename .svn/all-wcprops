@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/itc/!svn/ver/343/isuitcbase/sites/all/modules/custom/suitcase_config
+END
+suitcase_config.info
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/itc/!svn/ver/342/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.info
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/itc/!svn/ver/339/isuitcbase/sites/all/modules/custom/suitcase_config/LICENSE
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/itc/!svn/ver/339/isuitcbase/sites/all/modules/custom/suitcase_config/.gitignore
+END
+suitcase_config.strongarm.inc
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/itc/!svn/ver/339/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.strongarm.inc
+END
+suitcase_config.module
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/itc/!svn/ver/340/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.module
+END
+suitcase_config.features.inc
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/itc/!svn/ver/339/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.features.inc
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/itc/!svn/ver/339/isuitcbase/sites/all/modules/custom/suitcase_config/README.md
+END
+suitcase_config.features.fe_block_settings.inc
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/itc/!svn/ver/343/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.features.fe_block_settings.inc
+END
+suitcase_config.features.menu_links.inc
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/itc/!svn/ver/342/isuitcbase/sites/all/modules/custom/suitcase_config/suitcase_config.features.menu_links.inc
+END
