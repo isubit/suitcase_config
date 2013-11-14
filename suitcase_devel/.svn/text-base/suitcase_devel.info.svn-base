@@ -1,8 +1,0 @@
-name = suitcase_devel
-description = Tools for developing the suitcase
-core = 7.x
-package = Features
-version = 7.x-1.0
-project = suitcase_devel
-dependencies[] = omega_tools
-features[features_api][] = api:2
