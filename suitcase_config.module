@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Code for the suitcase_config feature.
+ */
+
+include_once 'suitcase_config.features.inc';
+
+/**
+ * Implements hook_update_projects_alter().
+ */
+function suitcase_config_update_projects_alter(&$projects) {
+  // Hide a site-specific module from the list.
+  unset($projects['suitcase_config']);
+}

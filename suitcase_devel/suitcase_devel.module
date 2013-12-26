@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * Implements hook_update_projects_alter().
+ */
+function suitcase_devel_update_projects_alter(&$projects) {
+  // Hide a site-specific module from the list.
+  unset($projects['suitcase_devel']);
+}
