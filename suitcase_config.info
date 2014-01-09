@@ -1,7 +1,7 @@
 name = suitcase_config
 description = An Omega 3 configuration for the suitcase subtheme
 core = 7.x
-package = Features
+package = Luggage
 version = 7.x-1.6
 project = suitcase_config
 dependencies[] = ctools
