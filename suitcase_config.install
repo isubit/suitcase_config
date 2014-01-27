@@ -1,0 +1,7 @@
+<?php
+
+
+function suitcase_config_install() {
+  //  Removing unwanted blocks
+  db_update('block')->fields(array('region' => '-1',))->condition('delta', 'help')->execute();
+}
