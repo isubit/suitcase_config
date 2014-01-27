@@ -13,3 +13,8 @@ function suitcase_config_update_projects_alter(&$projects) {
   // Hide a site-specific module from the list.
   unset($projects['suitcase_config']);
 }
+
+// Add the tb_megamenu block to the branding region for the theme suitcase
+function suitcase_config_post_features_enable_feature($component) {
+  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
+}

@@ -15,16 +15,6 @@ function suitcase_config_install() {
   //db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
 }
 
-function suitcase_config_post_features_enable_feature($component) {
-
-
-  //  Adding tb_megamenu main menu to branding region
-  if ($component == 'tb_megamenu') {
-    drupal_set_message('hooked','status',TRUE);
-    db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
-  }
-}
-
 /**
  * Implements hook_enable()
  */
