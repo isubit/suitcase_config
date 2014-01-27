@@ -1,20 +1,5 @@
 <?php
 
-
-function suitcase_config_install() {
-  // Because TB_megamenu is not yet available - https://drupal.org/comment/5794424#comment-5794424
-  //  features_rebuild();
-
-  //  Removing unwanted blocks
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
-
-  //  Adding tb_megamenu main menu to branding region
-  //db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
-}
-
 /**
  * Implements hook_enable()
  */
