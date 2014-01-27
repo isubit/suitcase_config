@@ -3,5 +3,9 @@
 
 function suitcase_config_install() {
   //  Removing unwanted blocks
-  db_update('block')->fields(array('region' => '-1',))->condition('delta', 'help')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
 }
