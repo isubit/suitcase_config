@@ -3,7 +3,7 @@
 
 function suitcase_config_install() {
   // Because TB_megamenu is not yet available - https://drupal.org/comment/5794424#comment-5794424
-//  features_rebuild();
+  //  features_rebuild();
 
   //  Removing unwanted blocks
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
@@ -16,6 +16,8 @@ function suitcase_config_install() {
 }
 
 function suitcase_config_post_features_enable_feature($component) {
+
+
   //  Adding tb_megamenu main menu to branding region
   if ($component == 'tb_megamenu') {
     drupal_set_message('hooked','status',TRUE);
