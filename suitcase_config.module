@@ -30,4 +30,36 @@ function suitcase_config_post_features_enable_feature($component) {
 // Add the tb_megamenu block to the branding region for the theme suitcase
 function suitcase_config_pre_features_enable_feature($component) {
   watchdog('suitcase_config', 'hook_pre_features_enable_feature', $variables = array($component), $severity = WATCHDOG_NOTICE, $link = NULL);
+  //  Removing unwanted blocks
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
+
+  //  Adding tb_megamenu main menu to branding region
+  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
+}
+
+
+/**
+ *  Implementation of function hook_form_FORM_ID_alter().
+ * @param $form
+ * @param $form_state
+ */
+function suitcase_config_form_system_site_information_settings_alter(&$form, &$form_state) {
+  $form['site_information']['site_slogan']['#title'] = 'Department name';
+  $form['site_information']['site_slogan']['#weight'] = '1';
+  $form['site_information']['dept_url']= array(
+    '#type' => 'textfield',
+    '#title' => 'Department URL',
+    '#default_value' => '',
+    '#description' => 'Full url to the Department site',
+    '#default_value' => variable_get('dept_url', $default = NULL),
+    '#weight'=> '2',
+  );
+  $form['#submit'][]= 'suitcase_config_form_submit';
+}
+
+function suitcase_config_form_submit($form, &$form_state) {
+  variable_set('dept_url', $form_state['values']['dept_url']);
 }
