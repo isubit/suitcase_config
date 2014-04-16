@@ -15,19 +15,6 @@ function suitcase_config_update_projects_alter(&$projects) {
 }
 
 // Add the tb_megamenu block to the branding region for the theme suitcase
-function suitcase_config_post_features_enable_feature($component) {
-  watchdog('suitcase_config', 'hook_post_features_enable_feature', $variables = array($component), $severity = WATCHDOG_NOTICE, $link = NULL);
-  //  Removing unwanted blocks
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
-
-  //  Adding tb_megamenu main menu to branding region
-  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
-}
-
-// Add the tb_megamenu block to the branding region for the theme suitcase
 function suitcase_config_pre_features_enable_feature($component) {
   watchdog('suitcase_config', 'hook_pre_features_enable_feature', $variables = array($component), $severity = WATCHDOG_NOTICE, $link = NULL);
   //  Removing unwanted blocks
@@ -37,7 +24,7 @@ function suitcase_config_pre_features_enable_feature($component) {
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
 
   //  Adding tb_megamenu main menu to branding region
-  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => 'menu','status' => '1', 'title' => '<none>',))->condition('module', 'system')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
 }
 
 
