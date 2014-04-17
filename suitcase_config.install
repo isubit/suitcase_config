@@ -5,12 +5,12 @@
  */
 function suitcase_config_enable() {
   db_update('system')
-    ->fields(array('weight' => 100))
+    ->fields(array('weight' => 100000))
     ->condition('type', 'module')
     ->condition('name', 'suitcase_config')
     ->execute();
   db_update('system')
-    ->fields(array('weight' => 100))
+    ->fields(array('weight' => 100000))
     ->condition('type', 'theme')
     ->condition('name', 'suitcase')
     ->execute();
@@ -25,5 +25,5 @@ function suitcase_config_install() {
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
 
   //  Adding tb_megamenu main menu to branding region
-  db_update('block')->fields(array('region' => 'branding','status' => '1',))->condition('module', 'tb_megamenu')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => 'menu','status' => '1', 'title' => '<none>',))->condition('module', 'system')->condition('delta', 'main-menu')->condition('theme', 'suitcase')->execute();
 }
