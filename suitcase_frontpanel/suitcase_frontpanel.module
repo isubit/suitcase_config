@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the suitcase_frontpanel feature.
+ */
+
+include_once 'suitcase_frontpanel.features.inc';
