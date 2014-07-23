@@ -23,7 +23,7 @@ function suitcase_config_pre_features_enable_feature($component) {
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
   // enable search block
-  db_update('block')->fields(array('region' => 'banner','status' => '1',))->condition('delta', 'login')->condition('theme', 'suitcase')->condition('pages', 'front␍rsearch␍search/*')->execute();
+  db_update('block')->fields(array('region' => 'banner','status' => '1','pages' => 'front␍rsearch␍search/*'))->condition('module', 'search')->condition('delta', 'form')->condition('theme', 'suitcase')->execute();
 }
 
 
