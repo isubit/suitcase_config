@@ -25,4 +25,11 @@ function suitcase_config_install() {
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
   // enable search block
   db_update('block')->fields(array('region' => 'banner','status' => '1','pages' => 'front␍rsearch␍search/*'))->condition('module', 'search')->condition('delta', 'form')->condition('theme', 'suitcase')->execute();
+  // Enable Apache Solr facet blocks
+  db_update('block')->fields(array('region' => 'sidebar_first','status' => '1'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->execute();
+  try {
+
+  } catch (Exception $e) {
+    throw new Exception('An error occurred while placing facet blocks', 0, $e);
+  }
 }
