@@ -1,7 +1,7 @@
 name = suitcase_frontpanel
 core = 7.x
 package = Luggage
-version = 7.x-2.0
+version = 7.x-2.1
 project = suitcase_frontpanel
 dependencies[] = ctools
 dependencies[] = luggage_announcements
