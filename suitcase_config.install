@@ -24,7 +24,8 @@ function suitcase_config_install() {
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
   db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
   // enable search block
-  db_update('block')->fields(array('region' => 'banner','status' => '1','pages' => 'front␍rsearch␍search/*'))->condition('module', 'search')->condition('delta', 'form')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => 'banner','status' => '1','pages' => '<front>␍rsearch␍search/*'))->condition('module', 'search')->condition('delta', 'form')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => 'footer_first','status' => '1',))->condition('delta', 'menu-footer-menu')->condition('theme', 'suitcase')->execute();
   try {
     // Enable Apache Solr 'More Like This'
     db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-17'))->condition('module', 'apachesolr_search')->condition('theme', 'suitcase')->condition('delta', 'mlt-001')->execute();
