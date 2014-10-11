@@ -17,26 +17,94 @@ function suitcase_config_enable() {
 }
 
 function suitcase_config_install() {
+
   watchdog('suitcase_config', 'hook_install', $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
   //  Removing unwanted blocks
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
-  // enable search block
-  db_update('block')->fields(array('region' => 'banner','status' => '1','pages' => '<front>␍rsearch␍search/*'))->condition('module', 'search')->condition('delta', 'form')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => 'footer_first','status' => '1',))->condition('delta', 'menu-footer-menu')->condition('theme', 'suitcase')->execute();
+  db_update('block')
+    ->fields(array('region' => '-1','status' => '0',))
+    ->condition('delta', 'help')
+    ->condition('theme', 'suitcase')
+    ->execute();
+  db_update('block')
+    ->fields(array('region' => '-1','status' => '0',))
+    ->condition('delta', 'navigation')
+    ->condition('theme', 'suitcase')
+    ->execute();
+  db_update('block')
+    ->fields(array('region' => '-1','status' => '0',))
+    ->condition('delta', 'management')
+    ->condition('theme', 'suitcase')
+    ->execute();
+  db_update('block')
+    ->fields(array('region' => '-1','status' => '0',))
+    ->condition('delta', 'login')
+    ->condition('theme', 'suitcase')
+    ->execute();
+
+  // enable blocks
+  db_update('block')
+    ->fields(array('region' => 'banner','status' => '1','pages' => "<front>\nsearch\nsearch/*",))
+    ->condition('module', 'search')
+    ->condition('delta', 'form')
+    ->condition('theme', 'suitcase')
+    ->execute();
+  db_update('block')
+    ->fields(array('region' => 'footer_first','status' => '1','title' => '<none>',))
+    ->condition('delta', 'menu-footer-menu')
+    ->condition('theme', 'suitcase')
+    ->execute();
   try {
     // Enable Apache Solr 'More Like This'
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-17'))->condition('module', 'apachesolr_search')->condition('theme', 'suitcase')->condition('delta', 'mlt-001')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-16'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'GiIy4zr9Gu0ZSa0bumw1Y9qIIpIDf1wu')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-15'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', '4Zh0ggJMBgeeYbrLPJCe8EML3A6PLE0J')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-14'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'O2ynE11RWC2FDIGp46TXLK98k3i4HZIe')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-13'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'j045rvPRi16WQmzotiI9CF4TeHlaTrRZ')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-12'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-11'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'vhOPY7CVRSum8C8RHz49k25n6esZvQFo')->execute();
-    db_update('block')->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-10'))->condition('module', 'facetapi')->condition('theme', 'suitcase')->condition('delta', 'O6jwi5uI0fhqDO0t0m0vRrAoxFiR7sx6')->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-17'))
+      ->condition('module', 'apachesolr_search')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'mlt-001')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-16'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'GiIy4zr9Gu0ZSa0bumw1Y9qIIpIDf1wu')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-15'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', '4Zh0ggJMBgeeYbrLPJCe8EML3A6PLE0J')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-14'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'O2ynE11RWC2FDIGp46TXLK98k3i4HZIe')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-13'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'j045rvPRi16WQmzotiI9CF4TeHlaTrRZ')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-12'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-11'))
+      ->condition('module', 'facetapi'
+      )->condition('theme', 'suitcase')
+      ->condition('delta', 'vhOPY7CVRSum8C8RHz49k25n6esZvQFo')
+      ->execute();
+    db_update('block')
+      ->fields(array('region' => 'sidebar_first','status' => '1','weight' => '-10'))
+      ->condition('module', 'facetapi')
+      ->condition('theme', 'suitcase')
+      ->condition('delta', 'O6jwi5uI0fhqDO0t0m0vRrAoxFiR7sx6')
+      ->execute();
   } catch (Exception $e) {
     throw new Exception('An error occurred while placing facet blocks', 0, $e);
   }
 }
+
