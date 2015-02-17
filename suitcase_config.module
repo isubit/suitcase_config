@@ -90,6 +90,18 @@ function _suitcase_config_form($form, &$form_state) {
     '#default_value' => variable_get('suitcase_config_background_color', '#f4f3e8'),
   );
 
+  $form['colors']['suitcase_config_primary_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Primary Text Color'),
+    '#default_value' => variable_get('suitcase_config_primary_text_color', '#990000'),
+  );
+
+  $form['colors']['suitcase_config_secondary_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secondary Text Color'),
+    '#default_value' => variable_get('suitcase_config_secondary_text_color', '#ffffff'),
+  );
+
   $form['colors']['suitcase_config_header_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header Color'),
@@ -120,16 +132,34 @@ function _suitcase_config_form($form, &$form_state) {
 }
 
 function _suitcase_config_form_submit($form, &$form_state) {
-//  $css = '.section-content{background-color:'.;
-  $css = '';
-  $css .= '.section-content{background-color:'.$form_state['values']['suitcase_config_background_color'].';}';
-  $css .= '.section-header{background-color:'.$form_state['values']['suitcase_config_header_color'].';border-bottom:6px solid '.$form_state['values']['suitcase_config_header_border_color'].';}';
-  $css .= '.body{background-color:'.$form_state['values']['suitcase_config_footer_color'].';}';
-  file_save_data($css,'public://style.css',FILE_EXISTS_REPLACE);
+  $css = new CSS();
+  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_background_color']),'.section-content');
+  $css->addStyle(array(
+    'background-color'=>$form_state['values']['suitcase_config_header_color'],
+    'border-bottom'=>$form_state['values']['suitcase_config_header_border_color'],
+  ),'.section-header');
+  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_footer_color']),'body');
+  $css->addStyle(array('color'=>$form_state['values']['suitcase_config_primary_text_color']),'.section h1,a,a:link,a:visited');
+  $css->addStyle(array('color'=>$form_state['values']['suitcase_config_secondary_text_color']),'.site-name a:hover,.site-name-slogan a');
+  $css->writeStylesheet();
 }
 
 function suitcase_config_preprocess_html(&$variables) {
   if($GLOBALS['theme'] == 'suitcase') {
     drupal_add_css('public://style.css',array('group'=>200));
+  }
+}
+
+class CSS {
+  protected $contents;
+  public function addStyle($styles,$selector) {
+    $temp = '';
+    foreach($styles as $key => $value) {
+      $temp .= $key . ':' . $value . ';';
+    }
+    $this->contents .= $selector . '{' . $temp . '}' . "\n";
+  }
+  public function writeStylesheet() {
+    file_save_data($this->contents,'public://style.css',FILE_EXISTS_REPLACE);
   }
 }
