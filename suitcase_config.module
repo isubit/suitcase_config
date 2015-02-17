@@ -53,7 +53,7 @@ function suitcase_config_form_submit($form, &$form_state) {
 function suitcase_config_menu() {
   $items = array();
 
-  $items['admin/config/theme'] = array(
+  $items['admin/config/theme_settings'] = array(
     'title' => 'Theme',
     'description' => 'Settings related to formatting and configuring themes.',
     'position' => 'right',
@@ -64,11 +64,11 @@ function suitcase_config_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
 
-  $items['admin/config/theme/suitcase_config'] = array(
+  $items['admin/config/theme_settings/suitcase_config'] = array(
     'title' => 'Suitcase Settings',
     'description' => 'Custom css and logo configuration',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('suitcase_config_form'),
+    'page arguments' => array('_suitcase_config_form'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_NORMAL_ITEM
   );
@@ -76,6 +76,60 @@ function suitcase_config_menu() {
   return $items;
 }
 
-function suitcase_config_form($form, &$form_state) {
+function _suitcase_config_form($form, &$form_state) {
+  $form['colors'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Colors'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['colors']['suitcase_config_background_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Background Color'),
+    '#default_value' => variable_get('suitcase_config_background_color', '#f4f3e8'),
+  );
+
+  $form['colors']['suitcase_config_header_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header Color'),
+    '#default_value' => variable_get('suitcase_config_header_color', '#CB1A2A'),
+  );
+
+  $form['colors']['suitcase_config_header_border_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header Border Color'),
+    '#default_value' => variable_get('suitcase_config_header_border_color', '#DFBD00'),
+  );
+
+//  $form['colors']['suitcase_config_header_text_color'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Header Text Color'),
+//    '#default_value' => variable_get('suitcase_config_header_text_color', '#DFBD00'),
+//  );
+
+  $form['colors']['suitcase_config_footer_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Footer Color'),
+    '#default_value' => variable_get('suitcase_config_footer_color', '#CEC9BB'),
+  );
+
+  $form['#submit'][] = '_suitcase_config_form_submit';
+
   return system_settings_form($form);
+}
+
+function _suitcase_config_form_submit($form, &$form_state) {
+//  $css = '.section-content{background-color:'.;
+  $css = '';
+  $css .= '.section-content{background-color:'.$form_state['values']['suitcase_config_background_color'].';}';
+  $css .= '.section-header{background-color:'.$form_state['values']['suitcase_config_header_color'].';border-bottom:6px solid '.$form_state['values']['suitcase_config_header_border_color'].';}';
+  $css .= '.body{background-color:'.$form_state['values']['suitcase_config_footer_color'].';}';
+  file_save_data($css,'public://style.css',FILE_EXISTS_REPLACE);
+}
+
+function suitcase_config_preprocess_html(&$variables) {
+  if($GLOBALS['theme'] == 'suitcase') {
+    drupal_add_css('public://style.css',array('group'=>200));
+  }
 }
