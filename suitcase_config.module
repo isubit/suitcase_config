@@ -77,6 +77,16 @@ function suitcase_config_menu() {
 }
 
 function _suitcase_config_form($form, &$form_state) {
+  $form['logo'] = array(
+    '#type' => 'managed_file',
+    '#name' => 'suitcase_config_logo',
+    '#title' => t('Logo Image File'),
+    '#size' => 40,
+    '#description' => t('Logo should be gif, jpg, jpeg, png or svg'),
+    '#upload_location' => 'public://suitcase_config',
+    '#default_value' => variable_get('suitcase_config_logo', NULL),
+  );
+
   $form['colors'] = array(
     '#type' => 'fieldset',
     '#title' => t('Colors'),
@@ -132,6 +142,40 @@ function _suitcase_config_form($form, &$form_state) {
 }
 
 function _suitcase_config_form_submit($form, &$form_state) {
+
+  // Process logo file
+  // TODO: allow file overwrite when saving new image with the same name
+  // TODO: validate image file
+  if(isset($form_state['values']['logo'])) {
+    $current_logo = variable_get('suitcase_config_logo');
+    $new_logo = $form_state['values']['logo'];
+
+    // add image
+    if($new_logo && $new_logo != $current_logo) {
+      $new_file = file_load($new_logo);
+      $new_file->status = FILE_STATUS_PERMANENT;
+      file_save($new_file);
+      file_usage_add($new_file, 'suitcase_config', 'logo', $new_file->fid);
+      variable_set('suitcase_config_logo', $new_file->fid);
+
+      // remove old logo from db and filesystem
+      if($current_logo) {
+        $old_file = file_load($current_logo);
+        file_usage_delete($old_file, 'suitcase_config', 'logo');
+        file_delete($old_file);
+      }
+    }
+
+    // remove image
+    if(!$new_logo && $current_logo) {
+      $file = file_load($current_logo);
+      file_usage_delete($file, 'suitcase_config', 'logo');
+      file_delete($file);
+      variable_set('suitcase_config_logo', NULL);
+    }
+  }
+
+  // Process CSS
   $css = new CSS();
   $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_background_color']),'.section-content');
   $css->addStyle(array(
