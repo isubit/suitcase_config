@@ -182,6 +182,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
     'background-color'=>$form_state['values']['suitcase_config_header_color'],
     'border-bottom'=>$form_state['values']['suitcase_config_header_border_color'],
   ),'.section-header');
+  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_header_color']), '#zone-menu.sticky-top');
   $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_footer_color']),'body');
   $css->addStyle(array('color'=>$form_state['values']['suitcase_config_primary_text_color']),'.section h1,a,a:link,a:visited');
   $css->addStyle(array('color'=>$form_state['values']['suitcase_config_secondary_text_color']),'.site-name a:hover,.site-name-slogan a');
@@ -204,6 +205,7 @@ class CSS {
     $this->contents .= $selector . '{' . $temp . '}' . "\n";
   }
   public function writeStylesheet() {
-    file_save_data($this->contents,'public://suitcase_config/style.css',FILE_EXISTS_REPLACE);
+    // TODO: Write file to subdirectory
+    file_save_data($this->contents,'public://style.css',FILE_EXISTS_REPLACE);
   }
 }
