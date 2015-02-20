@@ -77,6 +77,7 @@ function suitcase_config_menu() {
 }
 
 function _suitcase_config_form($form, &$form_state) {
+  $logo_default = variable_get('suitcase_config_logo', array('id'=>NULL, 'uri'=>NULL));
   $form['logo'] = array(
     '#type' => 'managed_file',
     '#name' => 'suitcase_config_logo',
@@ -84,7 +85,7 @@ function _suitcase_config_form($form, &$form_state) {
     '#size' => 40,
     '#description' => t('Logo should be gif, jpg, jpeg, png or svg'),
     '#upload_location' => 'public://suitcase_config',
-    '#default_value' => variable_get('suitcase_config_logo', NULL),
+    '#default_value' => $logo_default['id'],
   );
 
   $form['colors'] = array(
@@ -147,7 +148,8 @@ function _suitcase_config_form_submit($form, &$form_state) {
   // TODO: allow file overwrite when saving new image with the same name
   // TODO: validate image file
   if(isset($form_state['values']['logo'])) {
-    $current_logo = variable_get('suitcase_config_logo');
+    $logo_variable = variable_get('suitcase_config_logo', array('id'=>NULL, 'uri'=>NULL));
+    $current_logo = $logo_variable['id'];
     $new_logo = $form_state['values']['logo'];
 
     // add image
@@ -156,7 +158,9 @@ function _suitcase_config_form_submit($form, &$form_state) {
       $new_file->status = FILE_STATUS_PERMANENT;
       file_save($new_file);
       file_usage_add($new_file, 'suitcase_config', 'logo', $new_file->fid);
-      variable_set('suitcase_config_logo', $new_file->fid);
+      $new_logo_variable['id'] = $new_file->fid;
+      $new_logo_variable['uri'] = $new_file->uri;
+      variable_set('suitcase_config_logo', $new_logo_variable);
 
       // remove old logo from db and filesystem
       if($current_logo) {
@@ -191,7 +195,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
 
 function suitcase_config_preprocess_html(&$variables) {
   if($GLOBALS['theme'] == 'suitcase') {
-    drupal_add_css('public://style.css',array('group'=>200));
+    drupal_add_css('public://suitcase_config/style.css',array('group'=>200));
   }
 }
 
