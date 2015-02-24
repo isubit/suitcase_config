@@ -215,7 +215,9 @@ class CSS {
     $this->contents .= $selector . '{' . $temp . '}' . "\n";
   }
   public function writeStylesheet() {
+    $dir = 'public://suitcase_config';
     // TODO: Write file to subdirectory
-    file_save_data($this->contents,'public://style.css',FILE_EXISTS_REPLACE);
+    file_prepare_directory($dir,FILE_CREATE_DIRECTORY);
+    file_save_data($this->contents,'public://suitcase_config/style.css',FILE_EXISTS_REPLACE);
   }
 }

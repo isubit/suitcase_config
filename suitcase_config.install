@@ -14,8 +14,6 @@ function suitcase_config_enable() {
     ->condition('type', 'theme')
     ->condition('name', 'suitcase')
     ->execute();
-  $path = 'public://suitcase_config';
-  file_prepare_directory($path,FILE_CREATE_DIRECTORY);
 }
 
 function suitcase_config_install() {
