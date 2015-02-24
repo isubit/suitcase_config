@@ -97,7 +97,7 @@ function _suitcase_config_form($form, &$form_state) {
 
   $form['colors']['suitcase_config_background_color'] = array(
     '#type' => 'textfield',
-    '#title' => t('Background Color'),
+    '#title' => t('Main Background Color'),
     '#description' => t('Default #f4f3e8'),
     '#default_value' => variable_get('suitcase_config_background_color', '#f4f3e8'),
   );
@@ -118,7 +118,7 @@ function _suitcase_config_form($form, &$form_state) {
 
   $form['colors']['suitcase_config_header_color'] = array(
     '#type' => 'textfield',
-    '#title' => t('Header Color'),
+    '#title' => t('Header Background Color'),
     '#description' => t('Default #CB1A2A'),
     '#default_value' => variable_get('suitcase_config_header_color', '#CB1A2A'),
   );
