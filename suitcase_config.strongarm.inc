@@ -59,5 +59,19 @@ function suitcase_config_strongarm() {
   $strongarm->value = '#ffffff';
   $export['suitcase_config_secondary_text_color'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'suitcase_config_isu_nameplate_display';
+  $strongarm->value = 1;
+  $export['suitcase_config_isu_nameplate_display'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'suitcase_config_blackbar_display';
+  $strongarm->value = 1;
+  $export['suitcase_config_blackbar_display'] = $strongarm;
+
   return $export;
 }

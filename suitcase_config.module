@@ -143,6 +143,27 @@ function _suitcase_config_form($form, &$form_state) {
     '#default_value' => variable_get('suitcase_config_footer_color', '#CEC9BB'),
   );
 
+  $form['layout'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Layout'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['layout']['suitcase_config_blackbar_display'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show black bar'),
+    '#description' => t('The black bar contains the Iowa State University links to CyMail, Outlook, Blackboard, AccessPlus, the Directory, Maps, ISU Contact Us, and the index.'),
+    '#default_value' => variable_get('suitcase_config_blackbar_display', 1),
+  );
+
+  $form['layout']['suitcase_config_isu_nameplate_display'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show the ISU name plate'),
+    '#description' => t('The ISU name plate is the Iowa State University text that displays above the site & department title.'),
+    '#default_value' => variable_get('suitcase_config_isu_nameplate_display', 1),
+  );
+
   $form['#submit'][] = '_suitcase_config_form_submit';
   $form['#validate'][] = '_suitcase_config_form_validate';
 
@@ -225,12 +246,6 @@ function _valid_css_color($color) {
   $pattern1 = '/(^(#)+(\w{6}))|(^(#)+(\w{3}))|(^(rgb\())|(^(rgba\())/m';
   $pattern2 = '/[^(:)|(;)|({)|(})|(,)]/m';
   return preg_match($pattern2,$color,$matches);
-}
-
-function suitcase_config_preprocess_html(&$variables) {
-  if($GLOBALS['theme'] == 'suitcase') {
-    drupal_add_css('public://suitcase_config/style.css',array('group'=>200));
-  }
 }
 
 class CSS {

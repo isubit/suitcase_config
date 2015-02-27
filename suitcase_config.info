@@ -15,5 +15,7 @@ features[variable][] = suitcase_config_header_border_color
 features[variable][] = suitcase_config_header_color
 features[variable][] = suitcase_config_primary_text_color
 features[variable][] = suitcase_config_secondary_text_color
+features[variable][] = suitcase_config_isu_nameplate_display
+features[variable][] = suitcase_config_blackbar_display
 features[features_api][] = api:2
 mtime = 1424189508
