@@ -76,6 +76,15 @@ function suitcase_config_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_preprocess_HOOK
+ */
+function suitcase_config_preprocess_html(&$variables) {
+    if($GLOBALS['theme'] == 'suitcase') {
+        drupal_add_css('public://suitcase_config/style.css',array('group'=>200));
+    }
+}
+
 function _suitcase_config_form($form, &$form_state) {
   $logo_default = variable_get('suitcase_config_logo', array('id'=>NULL, 'uri'=>NULL));
   $form['logo'] = array(
