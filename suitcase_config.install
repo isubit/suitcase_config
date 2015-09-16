@@ -108,3 +108,48 @@ function suitcase_config_install() {
   }
 }
 
+/**
+ * Copy logo from Omega config system to suitcase_config
+ */
+function suitcase_config_update_7201() {
+  if (!variable_get('suitcase_config_logo')) {
+    $omega_settings = variable_get('theme_suitcase_settings');
+    $old_uri = $omega_settings['logo_path'];
+    $filename = basename($old_uri);
+    $new_uri = "public://suitcase_config/" . $filename;
+
+    if (!empty($omega_settings['logo_path'])) {
+      file_unmanaged_copy($old_uri, $new_uri);
+
+      global $user;
+      $file = new stdClass;
+      $file->uid = $user->uid;
+      $file->filename = $filename;
+      $file->uri = $new_uri;
+      $file->filemime = file_get_mimetype($new_uri);
+      $file->status = FILE_STATUS_PERMANENT;
+      $file->timestamp = REQUEST_TIME;
+      $file->filesize = @filesize($new_uri);
+
+      $file = file_save($file);
+
+      file_usage_add($file, 'suitcase_config', 'logo', $file->fid);
+
+      $suitcase_config_logo = array(
+        'id' => $file->fid,
+        'uri' => $file->uri,
+      );
+      variable_set('suitcase_config_logo', $suitcase_config_logo);
+    }
+    else {
+      $message = "No omega logo found, noting to copy";
+    }
+  }
+  else {
+    $message = "A suitcase_config logo already exists, not copying";
+  }
+
+  if (isset($message)) {
+    return $message;
+  }
+}
