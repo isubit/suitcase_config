@@ -18,10 +18,10 @@ function suitcase_config_update_projects_alter(&$projects) {
 function suitcase_config_pre_features_enable_feature($component) {
   watchdog('suitcase_config', 'hook_pre_features_enable_feature', $variables = array($component), $severity = WATCHDOG_NOTICE, $link = NULL);
   //  Removing unwanted blocks
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1','status' => '0',))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
+  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
 }
 
 /**
@@ -38,7 +38,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     '#default_value' => '',
     '#description' => 'Full url to the Department site',
     '#default_value' => variable_get('dept_url', $default = NULL),
-    '#weight'=> '2',
+    '#weight' => '2',
   );
   $form['#submit'][]= 'suitcase_config_form_submit';
 }
@@ -80,13 +80,13 @@ function suitcase_config_menu() {
  * Implements hook_preprocess_HOOK
  */
 function suitcase_config_preprocess_html(&$variables) {
-    if($GLOBALS['theme'] == 'suitcase') {
-        drupal_add_css('public://suitcase_config/style.css',array('group'=>200));
+    if ($GLOBALS['theme'] == 'suitcase') {
+        drupal_add_css('public://suitcase_config/style.css', array('group' => 200));
     }
 }
 
 function _suitcase_config_form($form, &$form_state) {
-  $logo_default = variable_get('suitcase_config_logo', array('id'=>NULL, 'uri'=>NULL));
+  $logo_default = variable_get('suitcase_config_logo', array('id' => NULL, 'uri' => NULL));
   $form['logo'] = array(
     '#type' => 'managed_file',
     '#name' => 'suitcase_config_logo',
@@ -139,12 +139,6 @@ function _suitcase_config_form($form, &$form_state) {
     '#default_value' => variable_get('suitcase_config_header_border_color', '#DFBD00'),
   );
 
-//  $form['colors']['suitcase_config_header_text_color'] = array(
-//    '#type' => 'textfield',
-//    '#title' => t('Header Text Color'),
-//    '#default_value' => variable_get('suitcase_config_header_text_color', '#DFBD00'),
-//  );
-
   $form['colors']['suitcase_config_footer_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Footer Background Color'),
@@ -184,13 +178,13 @@ function _suitcase_config_form_submit($form, &$form_state) {
   // Process logo file
   // TODO: allow file overwrite when saving new image with the same name
   // TODO: validate image file
-  if(isset($form_state['values']['logo'])) {
-    $logo_variable = variable_get('suitcase_config_logo', array('id'=>NULL, 'uri'=>NULL));
+  if (isset($form_state['values']['logo'])) {
+    $logo_variable = variable_get('suitcase_config_logo', array('id' => NULL, 'uri' => NULL));
     $current_logo = $logo_variable['id'];
     $new_logo = $form_state['values']['logo'];
 
     // add image
-    if($new_logo && $new_logo != $current_logo) {
+    if ($new_logo && $new_logo != $current_logo) {
       $new_file = file_load($new_logo);
       $new_file->status = FILE_STATUS_PERMANENT;
       file_save($new_file);
@@ -200,7 +194,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
       variable_set('suitcase_config_logo', $new_logo_variable);
 
       // remove old logo from db and filesystem
-      if($current_logo) {
+      if ($current_logo) {
         $old_file = file_load($current_logo);
         file_usage_delete($old_file, 'suitcase_config', 'logo');
         file_delete($old_file);
@@ -208,7 +202,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
     }
 
     // remove image
-    if(!$new_logo && $current_logo) {
+    if (!$new_logo && $current_logo) {
       $file = file_load($current_logo);
       file_usage_delete($file, 'suitcase_config', 'logo');
       file_delete($file);
@@ -218,57 +212,57 @@ function _suitcase_config_form_submit($form, &$form_state) {
 
   // Process CSS
   $css = new CSS();
-  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_background_color']),'.section-content');
+  $css->addStyle(array('background-color' => $form_state['values']['suitcase_config_background_color']), '.section-content');
   $css->addStyle(array(
-    'background-color'=>$form_state['values']['suitcase_config_header_color'],
-    'border-bottom'=>'6px solid ' . $form_state['values']['suitcase_config_header_border_color'],
-  ),'.section-header');
-  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_header_color']), '#zone-menu.sticky-top');
-  $css->addStyle(array('background-color'=>$form_state['values']['suitcase_config_footer_color']),'body');
-  $css->addStyle(array('color'=>$form_state['values']['suitcase_config_primary_text_color']),'.section h1,a,a:link,a:visited');
-  $css->addStyle(array('color'=>$form_state['values']['suitcase_config_secondary_text_color']),'.site-name a:hover,.site-name-slogan a');
+    'background-color' => $form_state['values']['suitcase_config_header_color'],
+    'border-bottom' => '6px solid ' . $form_state['values']['suitcase_config_header_border_color'],
+  ), '.section-header');
+  $css->addStyle(array('background-color' => $form_state['values']['suitcase_config_header_color']), '#zone-menu.sticky-top');
+  $css->addStyle(array('background-color' => $form_state['values']['suitcase_config_footer_color']), 'body');
+  $css->addStyle(array('color' => $form_state['values']['suitcase_config_primary_text_color']), '.section h1,a,a:link,a:visited');
+  $css->addStyle(array('color' => $form_state['values']['suitcase_config_secondary_text_color']), '.site-name a:hover,.site-name-slogan a');
   $css->writeStylesheet();
 }
 
 function _suitcase_config_form_validate($form, &$form_state) {
-  if(!_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
-    form_set_error('suitcase_config_background_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
+    form_set_error('suitcase_config_background_color', t('The color is invalid.'));
   }
-  if(!_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
-    form_set_error('suitcase_config_primary_text_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
+    form_set_error('suitcase_config_primary_text_color', t('The color is invalid.'));
   }
-  if(!_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
-    form_set_error('suitcase_config_secondary_text_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
+    form_set_error('suitcase_config_secondary_text_color', t('The color is invalid.'));
   }
-  if(!_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
-    form_set_error('suitcase_config_header_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
+    form_set_error('suitcase_config_header_color', t('The color is invalid.'));
   }
-  if(!_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
-    form_set_error('suitcase_config_header_border_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
+    form_set_error('suitcase_config_header_border_color', t('The color is invalid.'));
   }
-  if(!_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
-    form_set_error('suitcase_config_footer_color',t('The color is invalid.'));
+  if (!_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
+    form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
   }
 }
 
 function _valid_css_color($color) {
   $pattern1 = '/(^(#)+(\w{6}))|(^(#)+(\w{3}))|(^(rgb\())|(^(rgba\())/m';
   $pattern2 = '/[^(:)|(;)|({)|(})|(,)]/m';
-  return preg_match($pattern2,$color,$matches);
+  return preg_match($pattern2, $color, $matches);
 }
 
 class CSS {
   protected $contents;
-  public function addStyle($styles,$selector) {
+  public function addStyle($styles, $selector) {
     $temp = '';
-    foreach($styles as $key => $value) {
+    foreach ($styles as $key => $value) {
       $temp .= $key . ':' . $value . ';';
     }
     $this->contents .= $selector . '{' . $temp . '}' . "\n";
   }
   public function writeStylesheet() {
     $dir = 'public://suitcase_config';
-    file_prepare_directory($dir,FILE_CREATE_DIRECTORY);
-    file_save_data($this->contents,'public://suitcase_config/style.css',FILE_EXISTS_REPLACE);
+    file_prepare_directory($dir, FILE_CREATE_DIRECTORY);
+    file_save_data($this->contents, 'public://suitcase_config/style.css', FILE_EXISTS_REPLACE);
   }
 }
