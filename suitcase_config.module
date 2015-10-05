@@ -151,6 +151,7 @@ function suitcase_config_form($form, &$form_state) {
     '#title' => t('Layout'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+    '#description' => t('Find department name and URL settings in <a href="@siteinfo">Site Information</a>.', array('@siteinfo' => url('admin/config/system/site-information'))),
   );
 
   $form['layout']['suitcase_config_blackbar_display'] = array(
