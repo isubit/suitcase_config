@@ -1,5 +1,5 @@
 name = suitcase_config
-description = An Omega 3 configuration for the suitcase subtheme
+description = An Omega 3 configuration for the Suitcase subtheme
 core = 7.x
 package = Luggage
 version = 7.x-2.8
