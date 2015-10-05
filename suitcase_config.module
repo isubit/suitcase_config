@@ -25,7 +25,7 @@ function suitcase_config_pre_features_enable_feature($component) {
 }
 
 /**
- * Implementats hook_form_FORM_ID_alter().
+ * Implements hook_form_FORM_ID_alter().
  * @param $form
  * @param $form_state
  */
