@@ -68,7 +68,7 @@ function suitcase_config_menu() {
     'title' => 'Suitcase Settings',
     'description' => 'Custom CSS and logo configuration',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('_suitcase_config_form'),
+    'page arguments' => array('suitcase_config_form'),
     'access arguments' => array('administer site configuration'),
     'type' => MENU_NORMAL_ITEM
   );
@@ -85,7 +85,7 @@ function suitcase_config_preprocess_html(&$variables) {
     }
 }
 
-function _suitcase_config_form($form, &$form_state) {
+function suitcase_config_form($form, &$form_state) {
   $logo_default = variable_get('suitcase_config_logo', array('id' => NULL, 'uri' => NULL));
   $form['logo'] = array(
     '#type' => 'managed_file',
@@ -167,13 +167,13 @@ function _suitcase_config_form($form, &$form_state) {
     '#default_value' => variable_get('suitcase_config_isu_nameplate_display', 1),
   );
 
-  $form['#submit'][] = '_suitcase_config_form_submit';
-  $form['#validate'][] = '_suitcase_config_form_validate';
+  $form['#submit'][] = 'suitcase_config_form_submit';
+  $form['#validate'][] = 'suitcase_config_form_validate';
 
   return system_settings_form($form);
 }
 
-function _suitcase_config_form_submit($form, &$form_state) {
+function suitcase_config_form_submit($form, &$form_state) {
 
   // Process logo file
   // TODO: allow file overwrite when saving new image with the same name
@@ -224,7 +224,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
   $css->writeStylesheet();
 }
 
-function _suitcase_config_form_validate($form, &$form_state) {
+function suitcase_config_form_validate($form, &$form_state) {
   if (!_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
     form_set_error('suitcase_config_background_color', t('The color is invalid.'));
   }
