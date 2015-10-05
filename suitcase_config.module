@@ -225,27 +225,27 @@ function suitcase_config_form_submit($form, &$form_state) {
 }
 
 function suitcase_config_form_validate($form, &$form_state) {
-  if (!_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
     form_set_error('suitcase_config_background_color', t('The color is invalid.'));
   }
-  if (!_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
     form_set_error('suitcase_config_primary_text_color', t('The color is invalid.'));
   }
-  if (!_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
     form_set_error('suitcase_config_secondary_text_color', t('The color is invalid.'));
   }
-  if (!_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
     form_set_error('suitcase_config_header_color', t('The color is invalid.'));
   }
-  if (!_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
     form_set_error('suitcase_config_header_border_color', t('The color is invalid.'));
   }
-  if (!_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
     form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
   }
 }
 
-function _valid_css_color($color) {
+function suitcase_config_valid_css_color($color) {
   $pattern1 = '/(^(#)+(\w{6}))|(^(#)+(\w{3}))|(^(rgb\())|(^(rgba\())/m';
   $pattern2 = '/[^(:)|(;)|({)|(})|(,)]/m';
   return preg_match($pattern2, $color, $matches);
