@@ -25,7 +25,7 @@ function suitcase_config_pre_features_enable_feature($component) {
 }
 
 /**
- *  Implementation of function hook_form_FORM_ID_alter().
+ * Implementats hook_form_FORM_ID_alter().
  * @param $form
  * @param $form_state
  */
@@ -36,7 +36,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     '#type' => 'textfield',
     '#title' => 'Department URL',
     '#default_value' => '',
-    '#description' => 'Full url to the Department site',
+    '#description' => 'Full URL to the Department site',
     '#default_value' => variable_get('dept_url', $default = NULL),
     '#weight' => '2',
   );
@@ -48,7 +48,7 @@ function suitcase_config_form_submit($form, &$form_state) {
 }
 
 /**
- * Implements hook_menu()
+ * Implements hook_menu().
  */
 function suitcase_config_menu() {
   $items = array();
@@ -66,7 +66,7 @@ function suitcase_config_menu() {
 
   $items['admin/config/theme_settings/suitcase_config'] = array(
     'title' => 'Suitcase Settings',
-    'description' => 'Custom css and logo configuration',
+    'description' => 'Custom CSS and logo configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('_suitcase_config_form'),
     'access arguments' => array('administer site configuration'),
@@ -92,7 +92,7 @@ function _suitcase_config_form($form, &$form_state) {
     '#name' => 'suitcase_config_logo',
     '#title' => t('Logo Image File'),
     '#size' => 40,
-    '#description' => t('Logo should be gif, jpg, jpeg, png or svg'),
+    '#description' => t('Logo should be  a .gif, .jpg, .jpeg, .png or .svg'),
     '#upload_location' => 'public://suitcase_config',
     '#default_value' => $logo_default['id'],
   );
@@ -162,8 +162,8 @@ function _suitcase_config_form($form, &$form_state) {
 
   $form['layout']['suitcase_config_isu_nameplate_display'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Show the ISU name plate'),
-    '#description' => t('The ISU name plate is the Iowa State University text that displays above the site & department title.'),
+    '#title' => t('Show ISU nameplate'),
+    '#description' => t('The ISU nameplate identifies Iowa State University above the site name and department title.'),
     '#default_value' => variable_get('suitcase_config_isu_nameplate_display', 1),
   );
 
@@ -183,7 +183,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
     $current_logo = $logo_variable['id'];
     $new_logo = $form_state['values']['logo'];
 
-    // add image
+    // Add image
     if ($new_logo && $new_logo != $current_logo) {
       $new_file = file_load($new_logo);
       $new_file->status = FILE_STATUS_PERMANENT;
@@ -193,7 +193,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
       $new_logo_variable['uri'] = $new_file->uri;
       variable_set('suitcase_config_logo', $new_logo_variable);
 
-      // remove old logo from db and filesystem
+      // Remove old logo from db and filesystem
       if ($current_logo) {
         $old_file = file_load($current_logo);
         file_usage_delete($old_file, 'suitcase_config', 'logo');
@@ -201,7 +201,7 @@ function _suitcase_config_form_submit($form, &$form_state) {
       }
     }
 
-    // remove image
+    // Remove image
     if (!$new_logo && $current_logo) {
       $file = file_load($current_logo);
       file_usage_delete($file, 'suitcase_config', 'logo');
