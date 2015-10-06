@@ -101,6 +101,7 @@ function suitcase_config_form($form, &$form_state) {
   $form['colors'] = array(
     '#type' => 'fieldset',
     '#title' => t('Colors'),
+    '#description' => t('For standard Iowa State University sites complying with the Visual Identity System these colors should be set to their default values.'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
