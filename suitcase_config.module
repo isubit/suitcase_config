@@ -206,10 +206,10 @@ function suitcase_config_form_submit($form, &$form_state) {
   }
   else {
     // If the logo is not defined or has been removed in the form, delete it.
-    $variable = variable_get('suitcase_config_logo');
-    if ($variable) {
+    $suitcase_config_logo = variable_get('suitcase_config_logo');
+    if ($suitcase_config_logo) {
       // If the logo was set in configuration, delete it.
-      $file = file_load($variable['id']);
+      $file = file_load($suitcase_config_logo['id']);
       file_usage_delete($file, 'suitcase_config', 'logo');
       file_delete($file);
       variable_del('suitcase_config_logo');
