@@ -130,22 +130,22 @@ function suitcase_config_form($form, &$form_state) {
   $form['colors']['suitcase_config_header_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header Background Color'),
-    '#description' => t('Default: #CB1A2A'),
-    '#default_value' => variable_get('suitcase_config_header_color', '#CB1A2A'),
+    '#description' => t('Default: #cb1a2a'),
+    '#default_value' => variable_get('suitcase_config_header_color', '#cb1a2a'),
   );
 
   $form['colors']['suitcase_config_header_border_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Header Border Color'),
-    '#description' => t('Default: #DFBD00'),
-    '#default_value' => variable_get('suitcase_config_header_border_color', '#DFBD00'),
+    '#description' => t('Default: #dfbd00'),
+    '#default_value' => variable_get('suitcase_config_header_border_color', '#dfbd00'),
   );
 
   $form['colors']['suitcase_config_footer_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Footer Background Color'),
-    '#description' => t('Default: #CEC9BB'),
-    '#default_value' => variable_get('suitcase_config_footer_color', '#CEC9BB'),
+    '#description' => t('Default: #cec9bb'),
+    '#default_value' => variable_get('suitcase_config_footer_color', '#cec9bb'),
   );
 
   $form['layout'] = array(
