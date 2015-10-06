@@ -14,10 +14,10 @@ function suitcase_config_update_projects_alter(&$projects) {
   unset($projects['suitcase_config']);
 }
 
-// Add the tb_megamenu block to the branding region for the theme suitcase.
+// Disable blocks when the suitcase_config feature is enabled.
+// This is actually called twice, once for each component in
+// suitcase_config.info features (ctools and features_api).
 function suitcase_config_pre_features_enable_feature($component) {
-  watchdog('suitcase_config', 'hook_pre_features_enable_feature', $variables = array($component), $severity = WATCHDOG_NOTICE, $link = NULL);
-  //  Removing unwanted blocks.
   db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
   db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
   db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
