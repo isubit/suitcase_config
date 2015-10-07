@@ -18,10 +18,14 @@ function suitcase_config_update_projects_alter(&$projects) {
 // This is actually called twice, once for each component in
 // suitcase_config.info features (ctools and features_api).
 function suitcase_config_pre_features_enable_feature($component) {
-  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
-  db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
+  // This conditional has nothing to do with ctools; it just ensures that
+  // blocks are disabled only once.
+  if ($component == 'ctools') {
+    db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'help')->condition('theme', 'suitcase')->execute();
+    db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'navigation')->condition('theme', 'suitcase')->execute();
+    db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'management')->condition('theme', 'suitcase')->execute();
+    db_update('block')->fields(array('region' => '-1', 'status' => '0', ))->condition('delta', 'login')->condition('theme', 'suitcase')->execute();
+  }
 }
 
 /**
