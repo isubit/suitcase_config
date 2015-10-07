@@ -22,8 +22,7 @@ function suitcase_config_enable() {
 
 function suitcase_config_install() {
 
-  watchdog('suitcase_config', 'hook_install', $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
-  //  Removing unwanted blocks
+  // Remove unwanted blocks.
   db_update('block')
     ->fields(array('region' => '-1', 'status' => '0', ))
     ->condition('delta', 'help')
@@ -45,7 +44,7 @@ function suitcase_config_install() {
     ->condition('theme', 'suitcase')
     ->execute();
 
-  // enable blocks
+  // Enable blocks.
   db_update('block')
     ->fields(array('region' => 'banner', 'status' => '1', 'pages' => "<front>\nsearch\nsearch/*", ))
     ->condition('module', 'search')
@@ -58,7 +57,7 @@ function suitcase_config_install() {
     ->condition('theme', 'suitcase')
     ->execute();
   try {
-    // Enable Apache Solr 'More Like This'
+    // Enable Apache Solr 'More Like This'.
     db_update('block')
       ->fields(array('region' => 'sidebar_first', 'status' => '1', 'weight' => '-17'))
       ->condition('module', 'apachesolr_search')
@@ -149,11 +148,11 @@ function suitcase_config_update_7201() {
       }
     }
     else {
-      $message = "No omega logo found, nothing to copy";
+      $message = "No Omega logo found; nothing to copy";
     }
   }
   else {
-    $message = "A suitcase_config logo already exists, not copying";
+    $message = "A suitcase_config logo already exists; not copying";
   } 
 
   if (isset($message)) {
