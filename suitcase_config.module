@@ -277,7 +277,7 @@ function suitcase_config_form_validate($form, &$form_state) {
 }
 
 function suitcase_config_valid_css_color($color) {
-  // limit the allow characters to the list in pattern
+  // Limit the allowed characters to the list in the pattern.
   $pattern = "/[^ abcdefghijklmnopqrstuvwxyz1234567890(),#%.]/im";
   return !preg_match($pattern, $color);
 }
