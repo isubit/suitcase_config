@@ -277,9 +277,9 @@ function suitcase_config_form_validate($form, &$form_state) {
 }
 
 function suitcase_config_valid_css_color($color) {
-  $pattern1 = '/(^(#)+(\w{6}))|(^(#)+(\w{3}))|(^(rgb\())|(^(rgba\())/m';
-  $pattern2 = '/[^(:)|(;)|({)|(})|(,)]/m';
-  return preg_match($pattern2, $color, $matches);
+  // limit the allow characters to the list in pattern
+  $pattern = "/[^ abcdefghijklmnopqrstuvwxyz1234567890(),#%.]/im";
+  return !preg_match($pattern, $color);
 }
 
 function suitcase_config_add_style($styles, $selector) {
