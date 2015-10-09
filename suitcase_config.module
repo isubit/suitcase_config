@@ -289,3 +289,20 @@ function suitcase_config_add_style($styles, $selector) {
   }
   return $selector . '{' . $s . "}\n";
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * 
+ * Since suitcase_config is handling the Omega logo functions, remove those 
+ * from the theme settings form and point user to the Suitcase Settings page.
+ */
+function suitcase_config_form_system_theme_settings_alter(&$form) {
+  // If settings for suitcase are being displayed.
+  if (isset($form['suitcase'])) {
+    $form['logo']['default_logo']['#access'] = FALSE;
+    $form['logo']['settings']['logo_path']['#access'] = FALSE;
+    $form['logo']['settings']['logo_upload']['#access'] = FALSE;
+    $form['logo']['#description'] = t('With the Suitcase theme enabled, these settings are available at !Suitcase Settings.', array('!Suitcase Settings' => l(t('Suitcase Settings'), 'admin/config/theme_settings/suitcase_config')));
+    $form['theme_settings']['toggle_logo']['#access'] = FALSE;
+  } 
+}
