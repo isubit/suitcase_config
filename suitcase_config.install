@@ -112,7 +112,6 @@ function suitcase_config_install() {
 }
 
 /**
- * Implements hook_update_N().
  * Copy logo from Omega config system to suitcase_config.
  */
 function suitcase_config_update_7201() {
