@@ -112,17 +112,22 @@ function suitcase_config_install() {
 }
 
 /**
- * Copy logo from Omega config system to suitcase_config
+ * Implements hook_update_N().
+ * Copy logo from Omega config system to suitcase_config.
  */
 function suitcase_config_update_7201() {
+  // If we don't already have a logo configured in suitcase_config, copy the omega logo.
   if (!variable_get('suitcase_config_logo')) {
     $omega_settings = variable_get('theme_suitcase_settings');
-    $old_uri = $omega_settings['logo_path'];
-    $filename = basename($old_uri);
-    $new_uri = "public://suitcase_config/" . $filename;
 
-    if (!empty($omega_settings['logo_path'])) {
+    // If the omega configuration has a logo defined and the display logo checkbox is checked.
+    if (!empty($omega_settings['logo_path']) && $omega_settings['toggle_logo'] == 1) {
+      $old_uri = $omega_settings['logo_path'];
+      $filename = basename($old_uri);
+      $new_uri = "public://suitcase_config/" . $filename;
       $dir = "public://suitcase_config";
+
+      // Copy the omega logo and manage the file with suitcase_config.
       file_prepare_directory($dir, FILE_CREATE_DIRECTORY);
       if (file_unmanaged_copy($old_uri, $new_uri)) {
 
@@ -145,14 +150,15 @@ function suitcase_config_update_7201() {
           'uri' => $file->uri,
         );
         variable_set('suitcase_config_logo', $suitcase_config_logo);
+        $message = t("Migrated @filename to suitcase_config symbol", array('@filename' => $filename));
       }
     }
     else {
-      $message = "No Omega logo found; nothing to copy";
+      $message = "No Omega file found; nothing to copy";
     }
   }
   else {
-    $message = "A suitcase_config logo already exists; not copying";
+    $message = "A suitcase_config symbol already exists; not copying";
   } 
 
   if (isset($message)) {
