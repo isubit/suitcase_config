@@ -69,7 +69,7 @@ function suitcase_config_menu() {
 
   $items['admin/config/theme_settings/suitcase_config'] = array(
     'title' => 'Suitcase Settings',
-    'description' => 'Custom CSS and logo configuration',
+    'description' => 'Custom CSS and site symbol configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('suitcase_config_form'),
     'access arguments' => array('administer site configuration'),
@@ -93,9 +93,9 @@ function suitcase_config_form($form, &$form_state) {
   $form['logo'] = array(
     '#type' => 'managed_file',
     '#name' => 'suitcase_config_logo',
-    '#title' => t('Logo Image File'),
+    '#title' => t('Symbol Image File'),
     '#size' => 40,
-    '#description' => t('Logo should be  a .gif, .jpg, .jpeg, .png or .svg'),
+    '#description' => t('Symbol should be  a .gif, .jpg, .jpeg, .png or .svg'),
     '#upload_location' => 'public://suitcase_config',
     '#upload_validators' => array('file_validate_extensions' => array('png gif jpg jpeg svg')),
     '#default_value' => $logo_default['id'],
@@ -251,7 +251,7 @@ function suitcase_config_form_validate($form, &$form_state) {
     }
     else {
       // File upload failed.
-      form_set_error('logo', t('The logo could not be uploaded'));
+      form_set_error('logo', t('The symbol could not be uploaded'));
     }
   }
 
