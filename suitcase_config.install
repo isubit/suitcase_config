@@ -120,7 +120,7 @@ function suitcase_config_update_7201() {
   if (!variable_get('suitcase_config_logo')) {
     $omega_settings = variable_get('theme_suitcase_settings');
 
-    // If the omega configuration has a logo defined and the display logo checkbox is checked.
+    // If the omega configuration has a logo path defined and the display logo checkbox is checked.
     if (!empty($omega_settings['logo_path']) && $omega_settings['toggle_logo'] == 1) {
       $old_uri = $omega_settings['logo_path'];
       $filename = basename($old_uri);
@@ -150,18 +150,8 @@ function suitcase_config_update_7201() {
           'uri' => $file->uri,
         );
         variable_set('suitcase_config_logo', $suitcase_config_logo);
-        $message = t("Migrated @filename to suitcase_config symbol", array('@filename' => $filename));
+        return t("Migrated @filename to suitcase_config symbol", array('@filename' => $filename));
       }
     }
-    else {
-      $message = "No Omega file found; nothing to copy";
-    }
-  }
-  else {
-    $message = "A suitcase_config symbol already exists; not copying";
-  } 
-
-  if (isset($message)) {
-    return $message;
   }
 }
