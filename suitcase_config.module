@@ -319,7 +319,7 @@ function _suitcase_config_set_color($type, $color) {
     case ColorTypes::FOOTER_TEXT:
       return _suitcase_config_add_style(array(
         'color' => $color
-      ), '#block-menu-menu-footer .leaf a');
+      ), '#block-menu-menu-footer .leaf a, .zone-footer a, .zone-footer p, .zone-footer li, .zone-footer span, .zone-footer strong, .zone-footer em');
       break;
     case ColorTypes::HEADER_TEXT:
       return _suitcase_config_add_style(array(
