@@ -324,7 +324,7 @@ function _suitcase_config_set_color($type, $color) {
     case ColorTypes::HEADER_TEXT:
       return _suitcase_config_add_style(array(
         'color' => $color
-      ), '.site-name-slogan>.site-name>a, nav.navigation .main-menu>li a, nav.navigation .secondary-menu>li a');
+      ), '.site-name-slogan>.site-name>a, .site-name-slogan>.site-slogan>a, nav.navigation .main-menu>li a, nav.navigation .secondary-menu>li a');
       break;
     case ColorTypes::SITE_TEXT:
       return _suitcase_config_add_style(array(
@@ -337,12 +337,12 @@ function _suitcase_config_set_color($type, $color) {
       ), 'section h1, a, a:link, a:visited');
       return $css . _suitcase_config_add_style(array(
         'background-color' => $color
-      ), '.section-header');
+      ), '.section-header, #zone-menu.sticky-top');
       break;
     case ColorTypes::SECONDARY:
       return _suitcase_config_add_style(array(
         'border-bottom-color' => $color
-      ), '.panel-pane > h2.pane-title, .zone-content aside .block .block-title, .zone-postscript .block h2.block-title, .section-header');
+      ), '.panel-pane > h2.pane-title, .zone-content aside .block .block-title, .zone-postscript .block h2.block-title, .section-header, .view-display-id-people_grid .view-content > h3');
       break;
     default:
       # code...
