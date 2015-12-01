@@ -109,46 +109,53 @@ function suitcase_config_form($form, &$form_state) {
     '#collapsed' => FALSE,
   );
 
-  $form['colors']['suitcase_config_background_color'] = array(
+  $form['colors']['suitcase_config_main_background_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Main Background Color'),
     '#description' => t('Default: #f4f3e8'),
-    '#default_value' => variable_get('suitcase_config_background_color', '#f4f3e8'),
+    '#default_value' => variable_get('suitcase_config_main_background_color', '#f4f3e8'),
   );
 
-  $form['colors']['suitcase_config_primary_text_color'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Primary Text Color'),
-    '#description' => t('Default: #990000'),
-    '#default_value' => variable_get('suitcase_config_primary_text_color', '#990000'),
-  );
-
-  $form['colors']['suitcase_config_secondary_text_color'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Secondary Text Color'),
-    '#description' => t('Default: #ffffff'),
-    '#default_value' => variable_get('suitcase_config_secondary_text_color', '#ffffff'),
-  );
-
-  $form['colors']['suitcase_config_header_color'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Header Background Color'),
-    '#description' => t('Default: #cb1a2a'),
-    '#default_value' => variable_get('suitcase_config_header_color', '#cb1a2a'),
-  );
-
-  $form['colors']['suitcase_config_header_border_color'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Header Border Color'),
-    '#description' => t('Default: #dfbd00'),
-    '#default_value' => variable_get('suitcase_config_header_border_color', '#dfbd00'),
-  );
-
-  $form['colors']['suitcase_config_footer_color'] = array(
+  $form['colors']['suitcase_config_footer_background_color'] = array(
     '#type' => 'textfield',
     '#title' => t('Footer Background Color'),
-    '#description' => t('Default: #cec9bb'),
-    '#default_value' => variable_get('suitcase_config_footer_color', '#cec9bb'),
+    '#description' => t('Default: #CEC9BB'),
+    '#default_value' => variable_get('suitcase_config_footer_background_color', '#CEC9BB'),
+  );
+
+  $form['colors']['suitcase_config_footer_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Footer Text Color'),
+    '#description' => t('Default: #ffffff'),
+    '#default_value' => variable_get('suitcase_config_footer_text_color', '#ffffff'),
+  );
+
+  $form['colors']['suitcase_config_header_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header Text Color'),
+    '#description' => t('Default: #fff'),
+    '#default_value' => variable_get('suitcase_config_header_text_color', '#fff'),
+  );
+
+  $form['colors']['suitcase_config_site_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Site Text Color'),
+    '#description' => t('Default: #333'),
+    '#default_value' => variable_get('suitcase_config_site_text_color', '#333'),
+  );
+
+  $form['colors']['suitcase_config_primary_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Primary Color'),
+    '#description' => t('Default: #CB1A2A'),
+    '#default_value' => variable_get('suitcase_config_primary_color', '#CB1A2A'),
+  );
+
+  $form['colors']['suitcase_config_secondary_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secondary Color'),
+    '#description' => t('Default: #DFBD00'),
+    '#default_value' => variable_get('suitcase_config_secondary_color', '#DFBD00'),
   );
 
   $form['layout'] = array(
@@ -221,16 +228,23 @@ function suitcase_config_form_submit($form, &$form_state) {
   }
 
   // Process CSS.
-  $css = suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_background_color']), '.section-content');
-  $css .= suitcase_config_add_style(array(
-    'background-color' => $form_state['values']['suitcase_config_header_color'],
-    'border-bottom' => '6px solid ' . $form_state['values']['suitcase_config_header_border_color'],
-  ), '.section-header');
-  $css .= suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_header_color']), '#zone-menu.sticky-top');
-  $css .= suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_footer_color']), 'body');
-  $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_primary_text_color']), '.section h1,a,a:link,a:visited');
-  $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_secondary_text_color']), '.site-name a:hover,.site-name-slogan a');
-  
+  $css = _suitcase_config_set_color(ColorTypes::MAIN_BACKGROUND, $form_state['values']['suitcase_config_main_background_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::FOOTER_BACKGROUND, $form_state['values']['suitcase_config_footer_background_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::FOOTER_TEXT, $form_state['values']['suitcase_config_footer_text_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::HEADER_TEXT, $form_state['values']['suitcase_config_header_text_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::SITE_TEXT, $form_state['values']['suitcase_config_site_text_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::PRIMARY, $form_state['values']['suitcase_config_primary_color']);
+  $css .= _suitcase_config_set_color(ColorTypes::SECONDARY, $form_state['values']['suitcase_config_secondary_color']);
+  // $css = suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_background_color']), '.section-content');
+  // $css .= suitcase_config_add_style(array(
+  //   'background-color' => $form_state['values']['suitcase_config_header_color'],
+  //   'border-bottom' => '6px solid ' . $form_state['values']['suitcase_config_header_border_color'],
+  // ), '.section-header');
+  // $css .= suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_header_color']), '#zone-menu.sticky-top');
+  // $css .= suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_footer_color']), 'body');
+  // $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_primary_text_color']), '.section h1,a,a:link,a:visited');
+  // $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_secondary_text_color']), '.site-name a:hover,.site-name-slogan a');
+
   // Write styles to, e.g., files/suitcase_config/style.css
   $dir = 'public://suitcase_config';
   file_prepare_directory($dir, FILE_CREATE_DIRECTORY);
@@ -256,24 +270,24 @@ function suitcase_config_form_validate($form, &$form_state) {
   }
 
   // Validate CSS Fields.
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
-    form_set_error('suitcase_config_background_color', t('The color is invalid.'));
-  }
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
-    form_set_error('suitcase_config_primary_text_color', t('The color is invalid.'));
-  }
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
-    form_set_error('suitcase_config_secondary_text_color', t('The color is invalid.'));
-  }
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
-    form_set_error('suitcase_config_header_color', t('The color is invalid.'));
-  }
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
-    form_set_error('suitcase_config_header_border_color', t('The color is invalid.'));
-  }
-  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
-    form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
-  }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
+  //   form_set_error('suitcase_config_background_color', t('The color is invalid.'));
+  // }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
+  //   form_set_error('suitcase_config_primary_text_color', t('The color is invalid.'));
+  // }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
+  //   form_set_error('suitcase_config_secondary_text_color', t('The color is invalid.'));
+  // }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
+  //   form_set_error('suitcase_config_header_color', t('The color is invalid.'));
+  // }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
+  //   form_set_error('suitcase_config_header_border_color', t('The color is invalid.'));
+  // }
+  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
+  //   form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
+  // }
 }
 
 function suitcase_config_valid_css_color($color) {
@@ -282,7 +296,7 @@ function suitcase_config_valid_css_color($color) {
   return !preg_match($pattern, $color);
 }
 
-function suitcase_config_add_style($styles, $selector) {
+function _suitcase_config_add_style($styles, $selector) {
   $s = '';
   foreach ($styles as $key => $value) {
     $s .= $key . ':' . $value . ';';
@@ -290,10 +304,66 @@ function suitcase_config_add_style($styles, $selector) {
   return $selector . '{' . $s . "}\n";
 }
 
+function _suitcase_config_set_color($type, $color) {
+  switch ($type) {
+    case ColorTypes::MAIN_BACKGROUND:
+      return _suitcase_config_add_style(array(
+        'background-color' => $color
+      ), '.section-content');
+      break;
+    case ColorTypes::FOOTER_BACKGROUND:
+      return _suitcase_config_add_style(array(
+        'background-color' => $color
+      ), 'body');
+      break;
+    case ColorTypes::FOOTER_TEXT:
+      return _suitcase_config_add_style(array(
+        'color' => $color
+      ), '#block-menu-menu-footer .leaf a');
+      break;
+    case ColorTypes::HEADER_TEXT:
+      return _suitcase_config_add_style(array(
+        'color' => $color
+      ), '.site-name-slogan>.site-name>a, nav.navigation .main-menu>li a, nav.navigation .secondary-menu>li a');
+      break;
+    case ColorTypes::SITE_TEXT:
+      return _suitcase_config_add_style(array(
+        'color' => $color
+      ), 'a, p, li, span, strong, em');
+      break;
+    case ColorTypes::PRIMARY:
+      $css = _suitcase_config_add_style(array(
+        'color' => $color
+      ), 'section h1, a, a:link, a:visited');
+      return $css . _suitcase_config_add_style(array(
+        'background-color' => $color
+      ), '.section-header');
+      break;
+    case ColorTypes::SECONDARY:
+      return _suitcase_config_add_style(array(
+        'border-bottom-color' => $color
+      ), '.panel-pane > h2.pane-title, .zone-content aside .block .block-title, .zone-postscript .block h2.block-title, .section-header');
+      break;
+    default:
+      # code...
+      break;
+  }
+}
+
+abstract class ColorTypes {
+  const MAIN_BACKGROUND = 0;
+  const FOOTER_BACKGROUND = 1;
+  const FOOTER_TEXT = 2;
+  const HEADER_TEXT = 3;
+  const SITE_TEXT = 4;
+  const PRIMARY = 5;
+  const SECONDARY = 6;
+}
+
 /**
  * Implements hook_form_FORM_ID_alter().
- * 
- * Since suitcase_config is handling the Omega logo functions, remove those 
+ *
+ * Since suitcase_config is handling the Omega logo functions, remove those
  * from the theme settings form and point user to the Suitcase Settings page.
  */
 function suitcase_config_form_system_theme_settings_alter(&$form) {
@@ -304,5 +374,5 @@ function suitcase_config_form_system_theme_settings_alter(&$form) {
     $form['logo']['settings']['logo_upload']['#access'] = FALSE;
     $form['logo']['#description'] = t('With the Suitcase theme enabled, these settings are available at !Suitcase Settings.', array('!Suitcase Settings' => l(t('Suitcase Settings'), 'admin/config/theme_settings/suitcase_config')));
     $form['theme_settings']['toggle_logo']['#access'] = FALSE;
-  } 
+  }
 }
