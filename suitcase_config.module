@@ -345,7 +345,7 @@ function _suitcase_config_set_color($type, $color) {
       ), '.panel-pane > h2.pane-title, .zone-content aside .block .block-title, .zone-postscript .block h2.block-title, .section-header, .view-display-id-people_grid .view-content > h3');
       return $css . _suitcase_config_add_style(array(
         'border-color' => $color
-      ), 'input[type=text]:focus, textarea:focus');
+      ), 'input[type=text]:focus, textarea:focus, .page-search .search-form input#edit-submit:hover, .page form#search-block-form .form-actions input.form-submit:hover');
       break;
     default:
       # code...
