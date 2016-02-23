@@ -49,8 +49,6 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
   $form['site_information']['site_wordmark'] = array(
     '#type' => 'managed_file',
     '#title' => t('Wordmark'),
-    '#progress_message' => t('Please wait...'),
-    '#progress_indicator' => 'bar',
     '#description' => t('Click "Choose File" to select an image to upload.'),
     '#required' => FALSE,
     '#upload_location' => 'public://',
@@ -61,13 +59,18 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
 function suitcase_config_form_system_information_submit($form, &$form_state) {
   variable_set('dept_url', $form_state['values']['dept_url']);
 
-  $file = file_load($form_state['values']['site_wordmark']);
-  $file->status = FILE_STATUS_PERMANENT;
+  if (isset($form_state['values']['site_wordmark']) && $form_state['values']['site_wordmark'] != 0) {
+    $file = file_load($form_state['values']['site_wordmark']);
+    $file->status = FILE_STATUS_PERMANENT;
 //  file_usage_add($file, 'module_name', 'entity_name', $entity_id);
-  file_save($file);
+    file_save($file);
 
-  variable_set('site_wordmark', $file->uri);
-  variable_set('site_wordmark_fid', $file->fid);
+    variable_set('site_wordmark', $file->uri);
+    variable_set('site_wordmark_fid', $file->fid);
+  } else {
+    variable_set('site_wordmark', NULL);
+    variable_set('site_wordmark_fid', NULL);
+  }
 }
 
 /**
