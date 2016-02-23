@@ -45,10 +45,29 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     '#weight' => '2',
   );
   $form['#submit'][]= 'suitcase_config_form_system_information_submit';
+
+  $form['site_information']['site_wordmark'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Wordmark'),
+    '#progress_message' => t('Please wait...'),
+    '#progress_indicator' => 'bar',
+    '#description' => t('Click "Choose File" to select an image to upload.'),
+    '#required' => FALSE,
+    '#upload_location' => 'public://',
+    '#default_value' => variable_get('site_wordmark_fid', $default = NULL),
+   );
 }
 
 function suitcase_config_form_system_information_submit($form, &$form_state) {
   variable_set('dept_url', $form_state['values']['dept_url']);
+
+  $file = file_load($form_state['values']['site_wordmark']);
+  $file->status = FILE_STATUS_PERMANENT;
+//  file_usage_add($file, 'module_name', 'entity_name', $entity_id);
+  file_save($file);
+
+  variable_set('site_wordmark', $file->uri);
+  variable_set('site_wordmark_fid', $file->fid);
 }
 
 /**
