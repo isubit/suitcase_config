@@ -154,3 +154,33 @@ function suitcase_config_update_7201() {
     }
   }
 }
+
+/**
+ * Migrate color variables.
+ */
+function suitcase_config_update_7202() {
+  // #f4f3e8
+  variable_set('suitcase_config_main_background_color', variable_get('suitcase_config_background_color'));
+  variable_del('suitcase_config_background_color');
+
+  // #990000
+  // Does not migrate.
+  variable_del('suitcase_config_primary_text_color');
+
+  // #ffffff
+  variable_set('suitcase_config_footer_text_color', variable_get('suitcase_config_secondary_text_color'));
+  variable_set('suitcase_config_header_text_color', variable_get('suitcase_config_secondary_text_color'));
+  variable_del('suitcase_config_secondary_text_color');
+
+  // #cb1a2a
+  variable_set('suitcase_config_primary_color', variable_get('suitcase_config_header_color'));
+  variable_del('suitcase_config_header_color');
+
+  // #dfbd00
+  variable_set('suitcase_config_secondary_color', variable_get('suitcase_config_header_border_color'));
+  variable_del('suitcase_config_header_border_color');
+
+  // #cec9bb
+  variable_set('suitcase_config_footer_background_color', variable_get('suitcase_config_footer_color'));
+  variable_del('suitcase_config_footer_color');
+}
