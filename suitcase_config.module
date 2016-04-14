@@ -278,25 +278,28 @@ function suitcase_config_form_validate($form, &$form_state) {
     }
   }
 
-  // Validate CSS Fields.
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_background_color'])) {
-  //   form_set_error('suitcase_config_background_color', t('The color is invalid.'));
-  // }
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_primary_text_color'])) {
-  //   form_set_error('suitcase_config_primary_text_color', t('The color is invalid.'));
-  // }
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_secondary_text_color'])) {
-  //   form_set_error('suitcase_config_secondary_text_color', t('The color is invalid.'));
-  // }
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_color'])) {
-  //   form_set_error('suitcase_config_header_color', t('The color is invalid.'));
-  // }
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_border_color'])) {
-  //   form_set_error('suitcase_config_header_border_color', t('The color is invalid.'));
-  // }
-  // if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
-  //   form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
-  // }
+   // Validate CSS Fields.
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_main_background_color'])) {
+     form_set_error('suitcase_config_main_background_color', t('Main Background Color is invalid.'));
+   }
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_background_color'])) {
+     form_set_error('suitcase_config_footer_background_color', t('Footer Background Color color is invalid.'));
+   }
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_text_color'])) {
+     form_set_error('suitcase_config_footer_text_color', t('Footer Text Color is invalid.'));
+   }
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_header_text_color'])) {
+     form_set_error('suitcase_config_header_text_color', t('Header Text Color is invalid.'));
+   }
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_site_text_color'])) {
+     form_set_error('suitcase_config_site_text_color', t('Site Text Color is invalid.'));
+   }
+   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_primary_color'])) {
+     form_set_error('suitcase_config_primary_color', t('Primary Color is invalid.'));
+   }
+  if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_secondary_color'])) {
+    form_set_error('suitcase_config_secondary_color', t('Secondary Color is invalid.'));
+  }
 }
 
 function suitcase_config_valid_css_color($color) {
