@@ -6,6 +6,15 @@
 
 include_once 'suitcase_config.features.inc';
 
+// Defining color constants.
+define('SUITCASE_CONFIG_MAIN_BACKGROUND', 0);
+define('SUITCASE_CONFIG_FOOTER_BACKGROUND', 1);
+define('SUITCASE_CONFIG_FOOTER_TEXT', 2);
+define('SUITCASE_CONFIG_HEADER_TEXT', 3);
+define('SUITCASE_CONFIG_SITE_TEXT', 4);
+define('SUITCASE_CONFIG_PRIMARY', 5);
+define('SUITCASE_CONFIG_SECONDARY', 6);
+
 /**
  * Implements hook_update_projects_alter().
  */
@@ -228,13 +237,13 @@ function suitcase_config_form_submit($form, &$form_state) {
   }
 
   // Process CSS.
-  $css = _suitcase_config_set_color(ColorTypes::MAIN_BACKGROUND, $form_state['values']['suitcase_config_main_background_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::FOOTER_BACKGROUND, $form_state['values']['suitcase_config_footer_background_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::FOOTER_TEXT, $form_state['values']['suitcase_config_footer_text_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::HEADER_TEXT, $form_state['values']['suitcase_config_header_text_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::SITE_TEXT, $form_state['values']['suitcase_config_site_text_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::PRIMARY, $form_state['values']['suitcase_config_primary_color']);
-  $css .= _suitcase_config_set_color(ColorTypes::SECONDARY, $form_state['values']['suitcase_config_secondary_color']);
+  $css = _suitcase_config_set_color(SUITCASE_CONFIG_MAIN_BACKGROUND, $form_state['values']['suitcase_config_main_background_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_FOOTER_BACKGROUND, $form_state['values']['suitcase_config_footer_background_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_FOOTER_TEXT, $form_state['values']['suitcase_config_footer_text_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_HEADER_TEXT, $form_state['values']['suitcase_config_header_text_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_SITE_TEXT, $form_state['values']['suitcase_config_site_text_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_PRIMARY, $form_state['values']['suitcase_config_primary_color']);
+  $css .= _suitcase_config_set_color(SUITCASE_CONFIG_SECONDARY, $form_state['values']['suitcase_config_secondary_color']);
   // $css = suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_background_color']), '.section-content');
   // $css .= suitcase_config_add_style(array(
   //   'background-color' => $form_state['values']['suitcase_config_header_color'],
@@ -306,32 +315,32 @@ function _suitcase_config_add_style($styles, $selector) {
 
 function _suitcase_config_set_color($type, $color) {
   switch ($type) {
-    case ColorTypes::MAIN_BACKGROUND:
+    case SUITCASE_CONFIG_MAIN_BACKGROUND:
       return _suitcase_config_add_style(array(
         'background-color' => $color
       ), '.section-content');
       break;
-    case ColorTypes::FOOTER_BACKGROUND:
+    case SUITCASE_CONFIG_FOOTER_BACKGROUND:
       return _suitcase_config_add_style(array(
         'background-color' => $color
       ), 'body');
       break;
-    case ColorTypes::FOOTER_TEXT:
+    case SUITCASE_CONFIG_FOOTER_TEXT:
       return _suitcase_config_add_style(array(
         'color' => $color
       ), '#block-menu-menu-footer .leaf a, .zone-footer a, .zone-footer p, .zone-footer li, .zone-footer span, .zone-footer strong, .zone-footer em');
       break;
-    case ColorTypes::HEADER_TEXT:
+    case SUITCASE_CONFIG_HEADER_TEXT:
       return _suitcase_config_add_style(array(
         'color' => $color
       ), '.site-name-slogan>.site-name>a, .site-name-slogan>.site-slogan>a, nav.navigation .main-menu>li a, nav.navigation .secondary-menu>li a');
       break;
-    case ColorTypes::SITE_TEXT:
+    case SUITCASE_CONFIG_SITE_TEXT:
       return _suitcase_config_add_style(array(
         'color' => $color
       ), 'a, p, li, span, strong, em');
       break;
-    case ColorTypes::PRIMARY:
+    case SUITCASE_CONFIG_PRIMARY:
       $css = _suitcase_config_add_style(array(
         'color' => $color
       ), 'section h1, a, a:link, a:visited');
@@ -339,7 +348,7 @@ function _suitcase_config_set_color($type, $color) {
         'background-color' => $color
       ), '.section-header, #zone-menu.sticky-top');
       break;
-    case ColorTypes::SECONDARY:
+    case SUITCASE_CONFIG_SECONDARY:
       $css = _suitcase_config_add_style(array(
         'border-bottom-color' => $color
       ), '.panel-pane > h2.pane-title, .zone-content aside .block .block-title, .zone-postscript .block h2.block-title, .section-header, .view-display-id-people_grid .view-content > h3');
@@ -351,16 +360,6 @@ function _suitcase_config_set_color($type, $color) {
       # code...
       break;
   }
-}
-
-abstract class ColorTypes {
-  const MAIN_BACKGROUND = 0;
-  const FOOTER_BACKGROUND = 1;
-  const FOOTER_TEXT = 2;
-  const HEADER_TEXT = 3;
-  const SITE_TEXT = 4;
-  const PRIMARY = 5;
-  const SECONDARY = 6;
 }
 
 /**
