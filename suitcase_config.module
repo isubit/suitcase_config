@@ -52,17 +52,36 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
   $form['site_information']['dept_url']= array(
     '#type' => 'textfield',
     '#title' => 'Level 2 URL',
-    '#default_value' => '',
     '#description' => 'Full URL to the Department site',
     '#default_value' => variable_get('dept_url', $default = NULL),
-    '#weight' => 2,
+    '#weight' => 3,
   );
 
   $form['site_information']['site_slogan']['#title'] = 'Level 3 (Lab or Entity name)';
   $form['site_information']['site_slogan']['#description'] = 'Displays under the Level 2 text';
-  $form['site_information']['site_slogan']['#weight'] = 3;
+  $form['site_information']['site_slogan']['#weight'] = 4;
 
-  $form['site_information']['site_mail']['#weight'] = 5;
+  // Should we show this?
+  $form['site_information']['levels_to_show'] = array(
+    '#title' => t('What levels do you want to show?'),
+    '#type' => 'checkboxes',
+    '#description' => t(''),
+    '#weight' => 5,
+    '#options' => array('2' => '2','3' => '3'),
+    '#default_value' => variable_get('suitcase_config_levels_to_show', $default = NULL),
+  );
+
+  // Should we show this?
+  $form['site_information']['level_that_is_site_name'] = array(
+    '#title' => t('Which level is the site name?'),
+    '#type' => 'radios',
+    '#description' => t(''),
+    '#weight' => 6,
+    '#options' => array('2' => '2','3' => '3'),
+    '#default_value' => variable_get('suitcase_config_level_that_is_site_name', $default = NULL),
+  );
+
+  $form['site_information']['site_mail']['#weight'] = 7;
 
   $form['#submit'][]= 'suitcase_config_form_system_information_submit';
 
@@ -70,6 +89,8 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
 
 function suitcase_config_form_system_information_submit($form, &$form_state) {
   variable_set('dept_url', $form_state['values']['dept_url']);
+  variable_set('suitcase_config_levels_to_show', $form_state['values']['levels_to_show']);
+  variable_set('suitcase_config_level_that_is_site_name', $form_state['values']['level_that_is_site_name']);
 
   if ($form_state['values']['site_name'] == '') {
     variable_set('site_name', 'Iowa State University');
