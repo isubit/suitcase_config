@@ -101,6 +101,7 @@ function suitcase_config_form_system_information_submit($form, &$form_state) {
     $file->status = FILE_STATUS_PERMANENT;
 //  file_usage_add($file, 'module_name', 'entity_name', $entity_id);
     file_save($file);
+    file_usage_add($file, 'suitcase_interim', 'suitcase_interim', 1);
 
     variable_set('site_wordmark', $file->uri);
     variable_set('site_wordmark_fid', $file->fid);
