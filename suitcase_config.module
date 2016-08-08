@@ -427,8 +427,8 @@ function suitcase_config_form_system_theme_settings_alter(&$form) {
 function suitcase_config_theme($existing, $type, $theme, $path) {
   $theme = array();
   $theme['page__admin__config__system__site_information'] = array(
-    'render element' => 'content',
-    'base hook' => 'page',
+    'render element' => 'form',
+    // 'base hook' => 'page',
     'template' => 'page--admin--config--system--site_information',
     'path' => drupal_get_path('module', 'suitcase_config') . '/templates',
    );
