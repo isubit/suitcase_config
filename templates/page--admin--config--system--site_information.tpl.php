@@ -35,6 +35,7 @@
   .vertical-tab-button.active,
   .header-preview {
     background-color: #cc0000;
+    border-bottom: 9px solid #F1BE48;
   }
 
   .vertical-tab-button .form-text {
