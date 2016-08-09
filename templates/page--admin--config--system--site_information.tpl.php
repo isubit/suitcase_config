@@ -9,17 +9,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #333;
     border-radius: 4px;
   }
 
   .vertical-tab-button {
     background-color: #ddd;
     padding: 1em;
+    cursor: pointer;
+    color: #fff;
   }
 
   .vertical-tab-button:not(:last-child) {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #aaa;
   }
 
   .vertical-tab-button:first-child {
@@ -59,7 +60,7 @@
   }
 
   .container-12 .grid-6 {
-    width: 50%;
+    width: calc(50% - 2em);
     float: left;
     padding: 1em;
   }
@@ -67,9 +68,11 @@
   .header-preview {
     padding: 1em;
     color: #fff;
+    border-radius: 2px;
   }
 
-  .header-preview .site-name-level-1 {
+  .header-preview .site-name-level-1,
+  .field-department-name .field-name {
     margin-bottom: 0;
     font-weight: 500;
     font-size: 18px;
@@ -79,6 +82,16 @@
     font-family: Helvetica neue, sans-serif;
     letter-spacing: 0;
     margin-top: 0;
+  }
+
+  .header-preview .site-name-level-2,
+  .field-laboratory-name .field-name {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    line-height: 16px;
+    font-weight: 400;
+    font-family: Helvetica neue, sans-serif;
   }
 </style>
 <div<?php print $attributes; ?>>
@@ -157,10 +170,14 @@
       });
 
       $('.field-department-name .form-text').bind("propertychange change click keyup input paste", function() {
+      	$('.field-department-name .field-name').text($(this).val());
+      	$('.field-department-name .form-text').val($(this).val());
         $headerLevel1.text($(this).val());
       });
 
       $('.field-laboratory-name .form-text').bind("propertychange change click keyup input paste", function() {
+      	$('.field-laboratory-name .field-name').text($(this).val());
+      	$('.field-laboratory-name .form-text').val($(this).val());
         $headerLevel2.text($(this).val());
       });
     })(jQuery)
