@@ -86,7 +86,7 @@
   		<ul class="vertical-tabs-list">
   			<li class="vertical-tab-button active" data-img="true" data-dname="true" data-lname="true">
   				<div>
-            <img src="/suitcase_luggage/sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name">Department of Examples</span>
               <input type="text" name="department-name" class="form-text" value="Department of Examples" placeholder="Enter Department Name">
@@ -99,7 +99,7 @@
   			</li>
   			<li class="vertical-tab-button" data-img="true" data-dname="true" data-lname="false">
           <div>
-            <img src="/suitcase_luggage/sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name">Department of Examples</span>
               <input type="text" name="department-name" class="form-text" value="Department of Examples" placeholder="Enter Department Name">
@@ -108,7 +108,7 @@
   			</li>
   			<li class="vertical-tab-button" data-img="true" data-dname="false" data-lname="true">
           <div>
-            <img src="/suitcase_luggage/sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-laboratory-name">
               <span class="field-name">Laboratory of Jane Doe</span>
               <input type="text" name="laboratory-name" class="form-text" value="Laboratory of Jane Doe" placeholder="Enter Laboratory Name">
@@ -117,7 +117,7 @@
   			</li>
   			<li class="vertical-tab-button" data-img="true" data-dname="false" data-lname="true">
           <div>
-            <img src="/suitcase_luggage/sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-laboratory-name">
               <span class="field-name">Laboratory of Jane Doe</span>
               <input type="text" name="laboratory-name" class="form-text" value="Laboratory of Jane Doe" placeholder="Enter Laboratory Name">
@@ -128,7 +128,7 @@
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
-    		<img src="/suitcase_luggage/sites/all/themes/suitcase_interim/images/sprite.png" height="24px" class="header-img">
+    		<img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px" class="header-img">
         <header class="header-text">
           <h1 class="site-name-level-1">Department of Examples</h1>
           <h2 class="site-name-level-2">Laboratory of Jane Doe</h2>
