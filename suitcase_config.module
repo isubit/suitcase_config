@@ -134,6 +134,14 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
 
     $form['site_information']['site_mail']['#weight'] = 8;
 
+    $form['site_information']['header_type']= array(
+      '#type' => 'textfield',
+      // '#title' => 'Level 2 URL',
+      '#description' => 'The type of header to display',
+      '#default_value' => variable_get('suitcase_config_header_type', $default = 1),
+      '#weight' => 4,
+    );
+
     $form['#submit'][]= 'suitcase_config_form_system_information_submit';
   }
 }
@@ -145,6 +153,7 @@ function suitcase_config_form_system_information_submit($form, &$form_state) {
   variable_set('dept_url', $form_state['values']['dept_url']);
   variable_set('suitcase_config_levels_to_show', $form_state['values']['levels_to_show']);
   variable_set('suitcase_config_level_that_is_site_name', $form_state['values']['level_that_is_site_name']);
+  variable_set('suitcase_config_header_type', $form_state['values']['header_type']);
 
   if ($form_state['values']['site_name'] == '') {
     variable_set('site_name', 'Iowa State University');
@@ -428,7 +437,7 @@ function suitcase_config_theme($existing, $type, $theme, $path) {
   $theme = array();
   $theme_default = variable_get('theme_default');
   if ($theme_default && $theme_default == 'suitcase_interim') {
-    $theme['page__admin__config__system__site_information'] = array(
+    $theme['system_settings_form'] = array(
       'render element' => 'form',
       // 'base hook' => 'page',
       'template' => 'page--admin--config--system--site_information',

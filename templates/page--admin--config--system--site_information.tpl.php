@@ -62,7 +62,11 @@
   .container-12 .grid-6 {
     width: calc(50% - 2em);
     float: left;
-    padding: 1em;
+    padding-right: .5em;
+  }
+
+  .container-12 .grid-6:last-child {
+  	padding-right: 0;
   }
 
   .header-preview {
@@ -98,43 +102,43 @@
   <div class="container-12 clearfix">
   	<div class="grid-6 vertical-tabs clearfix">
   		<ul class="vertical-tabs-list">
-  			<li class="vertical-tab-button active" data-img="true" data-dname="true" data-lname="true">
+  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
   				<div>
             <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-department-name">
-              <span class="field-name">Department of Examples</span>
-              <input type="text" name="department-name" class="form-text" value="Department of Examples" placeholder="Enter Department Name">
+              <span class="field-name"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></span>
+              <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['level_2']['site_name']['#default_value']; ?>" placeholder="Enter Department Name">
             </div>
             <div class="field-container field-laboratory-name">
-              <span class="field-name">Laboratory of Jane Doe</span>
-              <input type="text" name="laboratory-name" class="form-text" value="Laboratory of Jane Doe" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
             </div>
   				</div>
   			</li>
-  			<li class="vertical-tab-button" data-img="true" data-dname="true" data-lname="false">
+  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 2) print 'active'; ?>" data-img="true" data-dname="true" data-lname="false" data-type="2">
           <div>
             <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-department-name">
-              <span class="field-name">Department of Examples</span>
-              <input type="text" name="department-name" class="form-text" value="Department of Examples" placeholder="Enter Department Name">
+              <span class="field-name"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></span>
+              <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['level_2']['site_name']['#default_value']; ?>" placeholder="Enter Department Name">
             </div>
           </div>
   			</li>
-  			<li class="vertical-tab-button" data-img="true" data-dname="false" data-lname="true">
+  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 3) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="3">
           <div>
             <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-laboratory-name">
-              <span class="field-name">Laboratory of Jane Doe</span>
-              <input type="text" name="laboratory-name" class="form-text" value="Laboratory of Jane Doe" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
   			</li>
-  			<li class="vertical-tab-button" data-img="true" data-dname="false" data-lname="true">
+  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
             <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
             <div class="field-container field-laboratory-name">
-              <span class="field-name">Laboratory of Jane Doe</span>
-              <input type="text" name="laboratory-name" class="form-text" value="Laboratory of Jane Doe" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
   			</li>
@@ -144,12 +148,13 @@
       <div class="header-preview">
     		<img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px" class="header-img">
         <header class="header-text">
-          <h1 class="site-name-level-1">Department of Examples</h1>
-          <h2 class="site-name-level-2">Laboratory of Jane Doe</h2>
+          <h1 class="site-name-level-1"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
+          <h2 class="site-name-level-2"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></h2>
         </header>
       </div>
   	</div>
   </div>
+  <?php print drupal_render_children($form); ?>
   <script type="text/javascript">
     (function($) {
       var $headerImg = $('.header-preview .header-img'),
@@ -160,29 +165,29 @@
         $('.vertical-tab-button').removeClass('active');
         $(this).toggleClass('active');
         var d = $(this).data();
-        console.log(d);
         if (d.img) $headerImg.show();
         else $headerImg.hide();
         if (d.dname) $headerLevel1.show();
         else $headerLevel1.hide();
         if (d.lname) $headerLevel2.show();
         else $headerLevel2.hide();
+        $('#edit-header-type').val(d.type);
       });
 
       $('.field-department-name .form-text').bind("propertychange change click keyup input paste", function() {
       	$('.field-department-name .field-name').text($(this).val());
       	$('.field-department-name .form-text').val($(this).val());
+      	$('#edit-site-name').val($(this).val());
         $headerLevel1.text($(this).val());
       });
 
       $('.field-laboratory-name .form-text').bind("propertychange change click keyup input paste", function() {
       	$('.field-laboratory-name .field-name').text($(this).val());
       	$('.field-laboratory-name .form-text').val($(this).val());
+      	$('#edit-site-slogan').val($(this).val());
         $headerLevel2.text($(this).val());
       });
     })(jQuery)
   </script>
-  <?php if (isset($page['content'])) : ?>
-    <?php print render($page['content']); ?>
-  <?php endif; ?>
+  <?php print drupal_render_children($form); ?>
 </div>
