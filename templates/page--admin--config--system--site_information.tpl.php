@@ -60,7 +60,7 @@
   }
 
   .container-12 .grid-6 {
-    width: calc(50% - 2em);
+    width: calc(50% - .5em);
     float: left;
     padding-right: .5em;
   }
@@ -88,7 +88,7 @@
     margin-top: 0;
   }
 
-  .header-preview .site-name-level-2,
+  .header-preview .site-name-level-2>h2,
   .field-laboratory-name .field-name {
     font-size: 22px;
     margin-top: 10px;
@@ -96,6 +96,14 @@
     line-height: 16px;
     font-weight: 400;
     font-family: Helvetica neue, sans-serif;
+  }
+
+  .hr-preview {
+    background-color: #cc0000;
+    margin: 14px 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    height: 0;
   }
 </style>
 <div<?php print $attributes; ?>>
@@ -109,6 +117,7 @@
               <span class="field-name"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></span>
               <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['level_2']['site_name']['#default_value']; ?>" placeholder="Enter Department Name">
             </div>
+            <hr class="hr-preview">
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
               <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
@@ -149,7 +158,10 @@
     		<img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px" class="header-img">
         <header class="header-text">
           <h1 class="site-name-level-1"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
-          <h2 class="site-name-level-2"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></h2>
+          <div class="site-name-level-2">
+          	<hr class="hr-preview">
+          	<h2><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></h2>
+          </div>
         </header>
       </div>
   	</div>
