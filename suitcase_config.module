@@ -63,6 +63,8 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
       '#upload_location' => 'public://',
       '#default_value' => variable_get('site_wordmark_fid', $default = NULL),
       '#weight' => 1,
+      '#attributes' => array('accept' => 'image/*'),
+      '#upload_validators' => array('file_validate_extensions' => array('gif png jpg jpeg')),
     );
 
     $form['site_information']['level_1']['level_1_url']= array(

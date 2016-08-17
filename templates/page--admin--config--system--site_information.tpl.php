@@ -62,7 +62,7 @@
   .container-12 .grid-6 {
     width: calc(50% - .5em);
     float: left;
-    padding-right: .5em;
+    padding-right: 1em;
   }
 
   .container-12 .grid-6:last-child {
@@ -144,7 +144,7 @@
   			</li>
   			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
-            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):'../../../sites/all/themes/suitcase_interim/images/sprite.png'; ?>" height="24px" class="change-me">
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
               <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
@@ -155,7 +155,7 @@
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
-    		<img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px" class="header-img">
+    		<img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):'../../../sites/all/themes/suitcase_interim/images/sprite.png'; ?>" height="24px" class="header-img">
         <header class="header-text">
           <h1 class="site-name-level-1"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
           <div class="site-name-level-2">
@@ -198,6 +198,18 @@
       	$('.field-laboratory-name .form-text').val($(this).val());
       	$('#edit-site-slogan').val($(this).val());
         $headerLevel2.text($(this).val());
+      });
+
+      $('#edit-site-wordmark-upload').change(function(e) {
+      	console.log(e);
+      	var fr = new FileReader();
+      	fr.onload = function(e) {
+      		var dataURI = e.target.result;
+      		$('.change-me').attr({
+      			src: dataURI,
+      		});
+      	};
+      	fr.readAsDataURL(e.target.files[0]);
       });
     })(jQuery)
   </script>
