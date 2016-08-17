@@ -197,8 +197,8 @@
       var $headerImg = $('.header-preview .header-img'),
         $headerLevel1 = $('.header-preview .site-name-level-1'),
         $headerLevel2 = $('.header-preview .site-name-level-2'),
-        headerType = <?php print $form['site_information']['header_type']['#default_value']; ?>;
-      console.log(headerType);
+        headerType = <?php print $form['site_information']['header_type']['#default_value']; ?>,
+        defaultWordMarkPath = '../../../sites/all/themes/suitcase_interim/images/sprite.png';
 
       $('.vertical-tab-button').click(function() {
         $('.vertical-tab-button').removeClass('active');
@@ -212,6 +212,15 @@
         else $headerLevel2.hide();
         headerType = d.type;
         $('#edit-header-type').val(headerType);
+        if ($(this).hasClass('changeable-image-file')) {
+        	$('.header-preview>img').attr({
+        		src: $(this).find('img.change-me').attr('src'),
+        	});
+        } else {
+        	$('.header-preview>img').attr({
+        		src: defaultWordMarkPath,
+        	});
+        }
       });
 
       $('.field-department-name .form-text').bind("propertychange change click keyup input paste", function() {
@@ -229,7 +238,6 @@
       });
 
       $('#edit-site-wordmark-upload').change(function(e) {
-      	console.log(e);
       	var fr = new FileReader();
       	fr.onload = function(e) {
       		var dataURI = e.target.result;
