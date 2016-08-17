@@ -57,7 +57,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
 
     $form['site_information']['level_1']['site_wordmark'] = array(
       '#type' => 'managed_file',
-      '#title' => t('Level 1 (Wordmark)'),
+      '#title' => t('Wordmark'),
       '#description' => t('Click "Choose File" to select an image to upload.'),
       '#required' => FALSE,
       '#upload_location' => 'public://',

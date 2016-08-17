@@ -19,6 +19,14 @@
     color: #fff;
   }
 
+  .vertical-tab-button .form-item {
+    padding: 0;
+  }
+
+  .vertical-tab-button .form-item .description {
+    color: #fff;
+  }
+
   .vertical-tab-button:not(:last-child) {
     border-bottom: 1px solid #aaa;
   }
@@ -47,6 +55,10 @@
     min-width: 300px;
   }
 
+  .vertical-tab-button .form-item {
+    display: none;
+  }
+
   .vertical-tab-button.active .form-text {
     display: block;
   }
@@ -55,8 +67,16 @@
     display: none;
   }
 
+  .vertical-tab-button.active .form-item {
+    display: block;
+  }
+
   .vertical-tab-button .field-container:not(:last-child) {
     margin-bottom: 1em;
+  }
+
+  .vertical-tab-button.active.changeable-image-file .change-me {
+    display: none;
   }
 
   .container-12 .grid-6 {
@@ -99,11 +119,15 @@
   }
 
   .hr-preview {
-    background-color: #cc0000;
     margin: 14px 0;
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     height: 0;
+  }
+
+  .vertical-tab-button.active .hr-preview,
+  .header-preview .hr-preview {
+    background-color: #cc0000;
   }
 </style>
 <div<?php print $attributes; ?>>
@@ -142,9 +166,10 @@
             </div>
           </div>
   			</li>
-  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
+  			<li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
             <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):'../../../sites/all/themes/suitcase_interim/images/sprite.png'; ?>" height="24px" class="change-me">
+            <?php print render($form['site_information']['level_1']['site_wordmark']); ?>
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
               <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
@@ -171,7 +196,9 @@
     (function($) {
       var $headerImg = $('.header-preview .header-img'),
         $headerLevel1 = $('.header-preview .site-name-level-1'),
-        $headerLevel2 = $('.header-preview .site-name-level-2');
+        $headerLevel2 = $('.header-preview .site-name-level-2'),
+        headerType = <?php print $form['site_information']['header_type']['#default_value']; ?>;
+      console.log(headerType);
 
       $('.vertical-tab-button').click(function() {
         $('.vertical-tab-button').removeClass('active');
@@ -183,7 +210,8 @@
         else $headerLevel1.hide();
         if (d.lname) $headerLevel2.show();
         else $headerLevel2.hide();
-        $('#edit-header-type').val(d.type);
+        headerType = d.type;
+        $('#edit-header-type').val(headerType);
       });
 
       $('.field-department-name .form-text').bind("propertychange change click keyup input paste", function() {
