@@ -436,15 +436,33 @@ function suitcase_config_form_system_theme_settings_alter(&$form) {
  * Implements hook_theme().
  */
 function suitcase_config_theme($existing, $type, $theme, $path) {
-  $theme = array();
+  $implementations = array();
   $theme_default = variable_get('theme_default');
   if ($theme_default && $theme_default == 'suitcase_interim') {
-    $theme['system_settings_form'] = array(
+    $implementations['system_settings_form'] = array(
       'render element' => 'form',
       // 'base hook' => 'page',
       'template' => 'page--admin--config--system--site_information',
       'path' => drupal_get_path('module', 'suitcase_config') . '/templates',
     );
   }
-  return $theme;
+  return $implementations;
 }
+
+///**
+// * Implements module_preprocess_page()
+// */
+//function suitcase_config_preprocess_page(&$variables) {
+//  if ($variables['page']['content']['system_main'] && $variables['page']['content']['system_main']['#id'] === 'system-site-information-settings') {
+//    $variables['suitcase_config_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png';
+//  }
+//}
+//
+///**
+// * Implements module_preprocess_form()
+// */
+//function suitcase_config_preprocess_form(&$variables) {
+//  if ($variables['element']['#id'] === 'system-site-information-settings') {
+//    $variables['suitcase_config_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png';
+//  }
+//}

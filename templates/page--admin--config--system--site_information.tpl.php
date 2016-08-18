@@ -131,12 +131,13 @@
   }
 </style>
 <div<?php print $attributes; ?>>
+  <?php $variables['suitcase_interim_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png'; ?>
   <div class="container-12 clearfix">
   	<div class="grid-6 vertical-tabs clearfix">
   		<ul class="vertical-tabs-list">
   			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
   				<div>
-            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></span>
               <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['level_2']['site_name']['#default_value']; ?>" placeholder="Enter Department Name">
@@ -150,7 +151,7 @@
   			</li>
   			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 2) print 'active'; ?>" data-img="true" data-dname="true" data-lname="false" data-type="2">
           <div>
-            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></span>
               <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['level_2']['site_name']['#default_value']; ?>" placeholder="Enter Department Name">
@@ -159,7 +160,7 @@
   			</li>
   			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#default_value'] == 3) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="3">
           <div>
-            <img src="../../../sites/all/themes/suitcase_interim/images/sprite.png" height="24px">
+            <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
               <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
@@ -168,7 +169,7 @@
   			</li>
   			<li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
-            <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):'../../../sites/all/themes/suitcase_interim/images/sprite.png'; ?>" height="24px" class="change-me">
+            <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
             <?php print render($form['site_information']['level_1']['site_wordmark']); ?>
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></span>
@@ -180,7 +181,7 @@
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
-    		<img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):'../../../sites/all/themes/suitcase_interim/images/sprite.png'; ?>" height="24px" class="header-img">
+    		<img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
         <header class="header-text">
           <h1 class="site-name-level-1"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
           <div class="site-name-level-2">
@@ -197,8 +198,8 @@
       var $headerImg = $('.header-preview .header-img'),
         $headerLevel1 = $('.header-preview .site-name-level-1'),
         $headerLevel2 = $('.header-preview .site-name-level-2'),
-        headerType = <?php print $form['site_information']['header_type']['#default_value']; ?>,
-        defaultWordMarkPath = '../../../sites/all/themes/suitcase_interim/images/sprite.png';
+        headerType = <?php print $form['site_information']['header_type']['#default_value'] || 1; ?>,
+        defaultWordMarkPath = '<?php print $variables['suitcase_interim_wordmark_path']; ?>';
 
       $('.vertical-tab-button').click(function() {
         $('.vertical-tab-button').removeClass('active');
