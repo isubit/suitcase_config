@@ -129,6 +129,11 @@
   .header-preview .hr-preview {
     background-color: #cc0000;
   }
+
+  .header-img {
+    width: 375.5px;
+    height: auto;
+  }
 </style>
 <div<?php print $attributes; ?>>
   <?php $variables['suitcase_interim_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png'; ?>
@@ -167,7 +172,7 @@
             </div>
           </div>
   			</li>
-  			<li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
+        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#default_value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
             <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
             <?php print render($form['site_information']['level_1']['site_wordmark']); ?>
@@ -176,15 +181,21 @@
               <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
-  			</li>
+        </li>
+        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#default_value'] == 5) print 'active'; ?>" data-img="true" data-dname="false" data-lname="false" data-type="5">
+          <div>
+            <img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
+            <?php print render($form['site_information']['level_1']['site_wordmark']); ?>
+          </div>
+        </li>
   		</ul>
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
     		<img src="<?php print ($form['site_information']['level_1']['site_wordmark']['#file'])?file_create_url($form['site_information']['level_1']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
         <header class="header-text">
-          <h1 class="site-name-level-1"><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
-          <div class="site-name-level-2">
+          <h1 class="site-name-level-1" <?php if ($form['site_information']['header_type']['#default_value'] > 2) print 'style="display:none"'; ?>><?php print $form['site_information']['level_2']['site_name']['#default_value']; ?></h1>
+          <div class="site-name-level-2" <?php if ($form['site_information']['header_type']['#default_value'] == 2 || $form['site_information']['header_type']['#default_value'] == 5) print 'style="display:none"'; ?>>
           	<hr class="hr-preview">
           	<h2><?php print $form['site_information']['level_3']['site_slogan']['#default_value']; ?></h2>
           </div>
