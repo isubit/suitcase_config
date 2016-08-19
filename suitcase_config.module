@@ -48,14 +48,8 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     );
     $form['#submit'][]= 'suitcase_config_form_system_information_submit';
   } else if ($theme == 'suitcase_interim') {
-    $form['site_information']['level_1'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Level 1'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-    );
 
-    $form['site_information']['level_1']['site_wordmark'] = array(
+    $form['site_information']['site_wordmark'] = array(
       '#type' => 'managed_file',
       '#title' => t('Wordmark'),
       '#description' => t('Click "Choose File" to select an image to upload.'),
@@ -67,7 +61,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
       '#upload_validators' => array('file_validate_extensions' => array('gif png jpg jpeg')),
     );
 
-    $form['site_information']['level_1']['level_1_url']= array(
+    $form['site_information']['level_1_url']= array(
       '#type' => 'textfield',
       '#title' => 'Level 1 URL',
       '#description' => 'Full URL. Defaults to \'http://www.iastate.edu/\'',
@@ -75,23 +69,13 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
       '#weight' => 2,
     );
 
-    $form['site_information']['level_2'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Level 2'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-    );
-
     $form['site_information']['site_name']['#title'] = 'Level 2 (Department, College, or Consortium)';
     $form['site_information']['site_name']['#description'] = 'Displays under the wordmark & defaults to "Iowa State University"';
     $form['site_information']['site_name']['#weight'] = 3;
+    $form['site_information']['site_name']['#type'] = 'hidden';
     unset($form['site_information']['site_name']['#required']);
 
-    $site_name = $form['site_information']['site_name'];
-    unset($form['site_information']['site_name']);
-    $form['site_information']['level_2']['site_name'] = $site_name;
-
-    $form['site_information']['level_2']['dept_url']= array(
+    $form['site_information']['dept_url']= array(
       '#type' => 'textfield',
       '#title' => 'Level 2 URL',
       '#description' => 'Full URL to the Department site',
@@ -99,49 +83,40 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
       '#weight' => 4,
     );
 
-    $form['site_information']['level_3'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Level 3'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-    );
-
     $form['site_information']['site_slogan']['#title'] = 'Level 3 (Lab or Entity name)';
     $form['site_information']['site_slogan']['#description'] = 'Displays under the Level 2 text';
     $form['site_information']['site_slogan']['#weight'] = 5;
-
-    $site_slogan = $form['site_information']['site_slogan'];
-    unset($form['site_information']['site_slogan']);
-    $form['site_information']['level_3']['site_slogan'] = $site_slogan;
+    $form['site_information']['site_slogan']['#type'] = 'hidden';
 
     // Should we show this?
-    $form['site_information']['levels_to_show'] = array(
-      '#title' => t('What levels do you want to show?'),
-      '#type' => 'checkboxes',
-      '#description' => t(''),
-      '#weight' => 6,
-      '#options' => array('2' => '2','3' => '3'),
-      '#default_value' => variable_get('suitcase_config_levels_to_show', $default = NULL),
-    );
+    // $form['site_information']['levels_to_show'] = array(
+    //   '#title' => t('What levels do you want to show?'),
+    //   '#type' => 'checkboxes',
+    //   '#description' => t(''),
+    //   '#weight' => 6,
+    //   '#options' => array('2' => '2','3' => '3'),
+    //   '#default_value' => variable_get('suitcase_config_levels_to_show', $default = NULL),
+    // );
 
     // Should we show this?
-    $form['site_information']['level_that_is_site_name'] = array(
-      '#title' => t('Which level is the site name?'),
-      '#type' => 'radios',
-      '#description' => t(''),
-      '#weight' => 7,
-      '#options' => array('2' => '2','3' => '3'),
-      '#default_value' => variable_get('suitcase_config_level_that_is_site_name', $default = NULL),
-    );
+    // $form['site_information']['level_that_is_site_name'] = array(
+    //   '#title' => t('Which level is the site name?'),
+    //   '#type' => 'radios',
+    //   '#description' => t(''),
+    //   '#weight' => 7,
+    //   '#options' => array('2' => '2','3' => '3'),
+    //   '#default_value' => variable_get('suitcase_config_level_that_is_site_name', $default = NULL),
+    // );
 
     $form['site_information']['site_mail']['#weight'] = 8;
 
     $form['site_information']['header_type']= array(
-      '#type' => 'textfield',
+      '#type' => 'hidden',
       // '#title' => 'Level 2 URL',
       '#description' => 'The type of header to display',
-      '#default_value' => variable_get('suitcase_config_header_type', $default = 1),
+      '#value' => variable_get('suitcase_config_header_type', $default = 1),
       '#weight' => 4,
+      '#attributes' => array('id' => 'edit-header-type'),
     );
 
     $form['#submit'][]= 'suitcase_config_form_system_information_submit';
