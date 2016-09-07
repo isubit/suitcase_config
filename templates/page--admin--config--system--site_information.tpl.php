@@ -17,6 +17,8 @@
     padding: 1em;
     cursor: pointer;
     color: #fff;
+    margin-bottom: 1em;
+    border-radius: 2px;
   }
 
   .vertical-tab-button .form-item {
@@ -29,11 +31,6 @@
 
   .vertical-tab-button:not(:last-child) {
     border-bottom: 1px solid #aaa;
-  }
-
-  .vertical-tab-button:first-child {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
   }
 
   .vertical-tab-button:last-child {
@@ -52,7 +49,8 @@
     font-size: 14px;
     padding: 5px;
     border-radius: 2px;
-    min-width: 300px;
+    width: 300px;
+    max-width: 100%;
   }
 
   .vertical-tab-button .form-item {
@@ -87,6 +85,10 @@
 
   .container-12 .grid-6:last-child {
   	padding-right: 0;
+  }
+
+  .field-container .grid-6 {
+    box-sizing: border-box;
   }
 
   .header-preview {
@@ -139,18 +141,26 @@
   <?php $variables['suitcase_interim_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png'; ?>
   <div class="container-12 clearfix">
   	<div class="grid-6 vertical-tabs clearfix">
+      <h4>ISU Offical</h4>
   		<ul class="vertical-tabs-list">
   			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
   				<div>
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name"><?php print $form['site_information']['site_name']['#value']; ?></span>
-              <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['site_name']['#value']; ?>" placeholder="Enter Department Name">
+              <div class="container-12 clearfix">
+                <div class="grid-6">
+                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_information']['site_name']['#value']; ?>" placeholder="Enter Department Name">
+                </div>
+                <div class="grid-6">
+                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['dept_url']['#value']; ?>" placeholder="Enter URL">
+                </div>
+              </div>
             </div>
             <hr class="hr-preview">
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['site_slogan']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
   				</div>
   			</li>
@@ -159,7 +169,14 @@
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
               <span class="field-name"><?php print $form['site_information']['site_name']['#value']; ?></span>
-              <input type="text" name="department-name" class="form-text" value="<?php print $form['site_information']['site_name']['#value']; ?>" placeholder="Enter Department Name">
+              <div class="container-12 clearfix">
+                <div class="grid-6">
+                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_information']['site_name']['#value']; ?>" placeholder="Enter Department Name">
+                </div>
+                <div class="grid-6">
+                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['dept_url']['#value']; ?>" placeholder="Enter URL">
+                </div>
+              </div>
             </div>
           </div>
   			</li>
@@ -168,17 +185,27 @@
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['site_slogan']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
   			</li>
+      </ul>
+      <h4>Custom (Non-official)</h4>
+      <ul class="vertical-tabs-list">
         <li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
             <img src="<?php print ($form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
-            <?php print render($form['site_information']['site_wordmark']); ?>
+            <div class="container-12 clearfix">
+              <div class="grid-6">
+                <?php print render($form['site_information']['site_wordmark']); ?>
+              </div>
+              <div class="grid-6">
+                <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['level_1_url']['#value']; ?>" placeholder="Enter URL">
+              </div>
+            </div>
             <div class="field-container field-laboratory-name">
               <span class="field-name"><?php print $form['site_information']['site_slogan']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['site_slogan']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
         </li>
@@ -203,6 +230,7 @@
       </div>
   	</div>
   </div>
+  <?php print l(t('Change Suitcase Settings'), 'admin/config/theme_settings/suitcase_config'); ?>
   <?php print drupal_render_children($form); ?>
   <script type="text/javascript">
     (function($) {
@@ -235,16 +263,22 @@
         }
       });
 
-      $('.field-department-name .form-text').bind("propertychange change click keyup input paste", function() {
+      $('.field-department-name .form-text-watch').bind("propertychange change click keyup input paste", function() {
       	$('.field-department-name .field-name').text($(this).val());
-      	$('.field-department-name .form-text').val($(this).val());
+      	$('.field-department-name .form-text-watch').val($(this).val());
       	$('#edit-site-name').val($(this).val());
         $headerLevel1.text($(this).val());
       });
 
-      $('.field-laboratory-name .form-text').bind("propertychange change click keyup input paste", function() {
+      $('.field-department-name .form-url-watch').bind("propertychange change click keyup input paste", function() {
+        $('.field-department-name .form-url-watch').val($(this).val());
+        $('#edit-dept-url').val($(this).val());
+//        $headerLevel1.text($(this).val());
+      });
+
+      $('.field-laboratory-name .form-text-watch').bind("propertychange change click keyup input paste", function() {
       	$('.field-laboratory-name .field-name').text($(this).val());
-      	$('.field-laboratory-name .form-text').val($(this).val());
+      	$('.field-laboratory-name .form-text-watch').val($(this).val());
       	$('#edit-site-slogan').val($(this).val());
         $headerLevel2.text($(this).val());
       });
