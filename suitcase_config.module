@@ -73,6 +73,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     $form['site_information']['site_name']['#description'] = 'Displays under the wordmark & defaults to "Iowa State University"';
     $form['site_information']['site_name']['#weight'] = 3;
     $form['site_information']['site_name']['#type'] = 'hidden';
+    $form['site_information']['site_name']['#attributes']['id'] = 'edit-site-name';
     unset($form['site_information']['site_name']['#required']);
 
     $form['site_information']['dept_url']= array(
@@ -87,6 +88,7 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     $form['site_information']['site_slogan']['#description'] = 'Displays under the Level 2 text';
     $form['site_information']['site_slogan']['#weight'] = 5;
     $form['site_information']['site_slogan']['#type'] = 'hidden';
+    $form['site_information']['site_slogan']['#attributes']['id'] = 'edit-site-slogan';
 
     // Should we show this?
     // $form['site_information']['levels_to_show'] = array(
