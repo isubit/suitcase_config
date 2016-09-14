@@ -219,7 +219,7 @@
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
-    		<img src="<?php print ($form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
+    		<img src="<?php print ($form['site_information']['header_type']['#value'] > 3 && $form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
         <header class="header-text">
           <h1 class="site-name-level-1" <?php if ($form['site_information']['header_type']['#value'] > 2) print 'style="display:none"'; ?>><?php print $form['site_information']['level_2']['#value']; ?></h1>
           <div class="site-name-level-2" <?php if ($form['site_information']['header_type']['#value'] == 2 || $form['site_information']['header_type']['#value'] == 5) print 'style="display:none"'; ?>>
