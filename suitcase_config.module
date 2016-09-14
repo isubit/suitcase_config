@@ -469,13 +469,13 @@ function _suitcase_config_is_showing_this_header_level($level, $header_type=NULL
 
   if (!$header_type) {
     // Fail gracefully or raise an error?
-    return False;
+    return FALSE;
   } else if ($level == 2) {
     return ($header_type == 1 || $header_type == 2);
   } else if ($level == 3) {
     return ($header_type != 2 || $header_type != 5);
   } else {
-    return False;
+    return FALSE;
   }
 }
 
