@@ -47,7 +47,8 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
       '#weight' => '2',
     );
     $form['#submit'][]= 'suitcase_config_form_system_information_submit';
-  } else if ($theme == 'suitcase_interim') {
+  }
+  elseif ($theme == 'suitcase_interim') {
 
     $form['site_information']['site_wordmark'] = array(
       '#type' => 'managed_file',
@@ -150,7 +151,8 @@ function suitcase_config_form_system_information_submit($form, &$form_state) {
   $site_name = NULL;
   if (_suitcase_config_is_showing_this_header_level(3, $header_type)) {
     $site_name = $suitcase_config_level_3;
-  } else if (_suitcase_config_is_showing_this_header_level(2, $header_type)) {
+  }
+  elseif (_suitcase_config_is_showing_this_header_level(2, $header_type)) {
     $site_name = $suitcase_config_level_2;
   }
 
@@ -172,7 +174,8 @@ function suitcase_config_form_system_information_submit($form, &$form_state) {
 
     variable_set('site_wordmark', $file->uri);
     variable_set('site_wordmark_fid', $file->fid);
-  } else {
+  }
+  else {
     variable_set('site_wordmark', NULL);
     variable_set('site_wordmark_fid', NULL);
   }
@@ -470,11 +473,14 @@ function _suitcase_config_is_showing_this_header_level($level, $header_type=NULL
   if (!$header_type) {
     // Fail gracefully or raise an error?
     return FALSE;
-  } else if ($level == 2) {
+  }
+  elseif ($level == 2) {
     return ($header_type == 1 || $header_type == 2);
-  } else if ($level == 3) {
+  }
+  elseif ($level == 3) {
     return ($header_type != 2 || $header_type != 5);
-  } else {
+  }
+  else {
     return FALSE;
   }
 }
