@@ -97,26 +97,6 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     $form['site_information']['level_3'] = $form['site_information']['site_slogan'];
     unset($form['site_information']['site_slogan']);
 
-    // Should we show this?
-    // $form['site_information']['levels_to_show'] = array(
-    //   '#title' => t('What levels do you want to show?'),
-    //   '#type' => 'checkboxes',
-    //   '#description' => t(''),
-    //   '#weight' => 6,
-    //   '#options' => array('2' => '2','3' => '3'),
-    //   '#default_value' => variable_get('suitcase_config_levels_to_show', $default = NULL),
-    // );
-
-    // Should we show this?
-    // $form['site_information']['level_that_is_site_name'] = array(
-    //   '#title' => t('Which level is the site name?'),
-    //   '#type' => 'radios',
-    //   '#description' => t(''),
-    //   '#weight' => 7,
-    //   '#options' => array('2' => '2','3' => '3'),
-    //   '#default_value' => variable_get('suitcase_config_level_that_is_site_name', $default = NULL),
-    // );
-
     $form['site_information']['site_mail']['#weight'] = 8;
 
     $form['site_information']['header_type']= array(
@@ -484,21 +464,3 @@ function _suitcase_config_is_showing_this_header_level($level, $header_type=NULL
     return FALSE;
   }
 }
-
-///**
-// * Implements module_preprocess_page()
-// */
-//function suitcase_config_preprocess_page(&$variables) {
-//  if ($variables['page']['content']['system_main'] && $variables['page']['content']['system_main']['#id'] === 'system-site-information-settings') {
-//    $variables['suitcase_config_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png';
-//  }
-//}
-//
-///**
-// * Implements module_preprocess_form()
-// */
-//function suitcase_config_preprocess_form(&$variables) {
-//  if ($variables['element']['#id'] === 'system-site-information-settings') {
-//    $variables['suitcase_config_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png';
-//  }
-//}
