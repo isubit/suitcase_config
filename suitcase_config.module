@@ -34,8 +34,8 @@ function suitcase_config_pre_features_enable_feature($component) {
  * @param $form_state
  */
 function suitcase_config_form_system_site_information_settings_alter(&$form, &$form_state) {
-  $theme = variable_get('theme_default', NULL);
-  if ($theme == 'suitcase') {
+  $theme_default = variable_get('theme_default', NULL);
+  if ($theme_default == 'suitcase') {
     $form['site_information']['site_slogan']['#title'] = 'Department name';
     $form['site_information']['site_slogan']['#weight'] = '1';
     $form['site_information']['dept_url']= array(
@@ -48,116 +48,14 @@ function suitcase_config_form_system_site_information_settings_alter(&$form, &$f
     );
     $form['#submit'][]= 'suitcase_config_form_system_information_submit';
   }
-  elseif ($theme == 'suitcase_interim') {
 
-    $form['site_information']['site_wordmark'] = array(
-      '#type' => 'managed_file',
-      '#title' => t('Wordmark'),
-      '#description' => t('Click "Choose File" to select an image to upload.'),
-      '#required' => FALSE,
-      '#upload_location' => 'public://',
-      '#default_value' => variable_get('site_wordmark_fid', $default = NULL),
-      '#weight' => 1,
-      '#attributes' => array('accept' => 'image/*'),
-      '#upload_validators' => array('file_validate_extensions' => array('gif png jpg jpeg')),
-    );
-
-    $form['site_information']['level_1_url']= array(
-      '#type' => 'textfield',
-      '#title' => 'Level 1 URL',
-      '#description' => 'Full URL. Defaults to \'http://www.iastate.edu/\'',
-      '#default_value' => variable_get('suitcase_config_level_1_url', $default = 'http://www.iastate.edu/'),
-      '#weight' => 2,
-    );
-
-    $form['site_information']['site_name']['#title'] = 'Level 2 (Department, College, or Consortium)';
-    $form['site_information']['site_name']['#description'] = 'Displays under the wordmark & defaults to "Iowa State University"';
-    $form['site_information']['site_name']['#weight'] = 3;
-    $form['site_information']['site_name']['#type'] = 'hidden';
-    $form['site_information']['site_name']['#attributes']['id'] = 'edit-site-name';
-    $form['site_information']['site_name']['#default_value'] = variable_get('suitcase_config_level_2', NULL);
-    unset($form['site_information']['site_name']['#required']);
-    $form['site_information']['level_2'] = $form['site_information']['site_name'];
+  if ($theme_default == 'suitcase_interim') {
     unset($form['site_information']['site_name']);
-
-    $form['site_information']['dept_url']= array(
-      '#type' => 'textfield',
-      '#title' => 'Level 2 URL',
-      '#description' => 'Full URL to the Department site',
-      '#default_value' => variable_get('dept_url', $default = NULL),
-      '#weight' => 4,
+    $form['site_information']['suitcase_config'] = array(
+      '#type' => 'markup',
+      '#weight' => '-10',
+      '#markup' => t('Site name is configured in <a href="@url">Suitcase Settings</a>.', array('@url' => url('admin/config/theme_settings/suitcase_config'))),
     );
-
-    $form['site_information']['site_slogan']['#title'] = 'Level 3 (Lab or Entity name)';
-    $form['site_information']['site_slogan']['#description'] = 'Displays under the Level 2 text';
-    $form['site_information']['site_slogan']['#weight'] = 5;
-    $form['site_information']['site_slogan']['#type'] = 'hidden';
-    $form['site_information']['site_slogan']['#attributes']['id'] = 'edit-site-slogan';
-    $form['site_information']['site_slogan']['#default_value'] = variable_get('suitcase_config_level_3', NULL);
-    $form['site_information']['level_3'] = $form['site_information']['site_slogan'];
-    unset($form['site_information']['site_slogan']);
-
-    $form['site_information']['site_mail']['#weight'] = 8;
-
-    $form['site_information']['header_type']= array(
-      '#type' => 'hidden',
-      // '#title' => 'Level 2 URL',
-      '#description' => 'The type of header to display',
-      '#default_value' => variable_get('suitcase_config_header_type', $default = 1),
-      '#weight' => 4,
-      '#attributes' => array('id' => 'edit-header-type'),
-    );
-
-    $form['#submit'][]= 'suitcase_config_form_system_information_submit';
-
-    $form['#theme'] = array('suitcase_config_site_information_form');
-  }
-}
-
-function suitcase_config_form_system_information_submit($form, &$form_state) {
-  // Level 2
-  $suitcase_config_level_2 = $form_state['values']['level_2'];
-  variable_set('suitcase_config_level_2', $suitcase_config_level_2);
-
-  // Level 3
-  $suitcase_config_level_3 = $form_state['values']['level_3'];
-  variable_set('suitcase_config_level_3', $suitcase_config_level_3);
-
-  // Type of header
-  $header_type = $form_state['values']['header_type'];
-  variable_set('suitcase_config_header_type', $header_type);
-
-  // Decide which level the site name should be set to
-  $site_name = NULL;
-  if (_suitcase_config_is_showing_this_header_level(3, $header_type)) {
-    $site_name = $suitcase_config_level_3;
-  }
-  elseif (_suitcase_config_is_showing_this_header_level(2, $header_type)) {
-    $site_name = $suitcase_config_level_2;
-  }
-
-  if (!$site_name) {
-    $site_name = 'Iowa State University';
-  }
-
-  variable_set('site_name', $site_name);
-
-  variable_set('suitcase_config_level_1_url', $form_state['values']['level_1_url']);
-  variable_set('dept_url', $form_state['values']['dept_url']);
-
-  if (isset($form_state['values']['site_wordmark']) && $form_state['values']['site_wordmark'] != 0) {
-    $file = file_load($form_state['values']['site_wordmark']);
-    $file->status = FILE_STATUS_PERMANENT;
-//  file_usage_add($file, 'module_name', 'entity_name', $entity_id);
-    file_save($file);
-    file_usage_add($file, 'suitcase_interim', 'suitcase_interim', 1);
-
-    variable_set('site_wordmark', $file->uri);
-    variable_set('site_wordmark_fid', $file->fid);
-  }
-  else {
-    variable_set('site_wordmark', NULL);
-    variable_set('site_wordmark_fid', NULL);
   }
 }
 
@@ -199,8 +97,70 @@ function suitcase_config_preprocess_html(&$variables) {
 }
 
 function suitcase_config_form($form, &$form_state) {
-  $logo_default = variable_get('suitcase_config_logo', array('id' => NULL, 'uri' => NULL));
-  if (!_suitcase_config_suitcase_interim_is_default()) {
+  if (_suitcase_config_suitcase_interim_is_default()) {
+    $form['site_info']['site_wordmark'] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Wordmark'),
+      '#description' => t('Click "Choose File" to select an image to upload.'),
+      '#required' => FALSE,
+      '#upload_location' => 'public://',
+      '#default_value' => variable_get('site_wordmark_fid', $default = NULL),
+      '#weight' => 1,
+      '#attributes' => array('accept' => 'image/*'),
+      '#upload_validators' => array('file_validate_extensions' => array('gif png jpg jpeg')),
+    );
+
+    $form['site_info']['suitcase_config_level_1_url']= array(
+      '#type' => 'textfield',
+      '#title' => 'Level 1 URL',
+      '#description' => 'Full URL. Defaults to \'http://www.iastate.edu/\'',
+      '#default_value' => variable_get('suitcase_config_level_1_url', $default = 'http://www.iastate.edu/'),
+      '#weight' => 2,
+    );
+
+    $form['site_info']['site_name']['#title'] = 'Level 2 (Department, College, or Consortium)';
+    $form['site_info']['site_name']['#description'] = 'Displays under the wordmark & defaults to "Iowa State University"';
+    $form['site_info']['site_name']['#weight'] = 3;
+    $form['site_info']['site_name']['#type'] = 'hidden';
+    $form['site_info']['site_name']['#attributes']['id'] = 'edit-site-name';
+    $form['site_info']['site_name']['#default_value'] = variable_get('suitcase_config_level_2', NULL);
+    unset($form['site_info']['site_name']['#required']);
+    $form['site_info']['suitcase_config_level_2'] = $form['site_info']['site_name'];
+    unset($form['site_info']['site_name']);
+
+    $form['site_info']['dept_url']= array(
+      '#type' => 'textfield',
+      '#title' => 'Level 2 URL',
+      '#description' => 'Full URL to the Department site',
+      '#default_value' => variable_get('dept_url', $default = NULL),
+      '#weight' => 4,
+    );
+
+    $form['site_info']['site_slogan']['#title'] = 'Level 3 (Lab or Entity name)';
+    $form['site_info']['site_slogan']['#description'] = 'Displays under the Level 2 text';
+    $form['site_info']['site_slogan']['#weight'] = 5;
+    $form['site_info']['site_slogan']['#type'] = 'hidden';
+    $form['site_info']['site_slogan']['#attributes']['id'] = 'edit-site-slogan';
+    $form['site_info']['site_slogan']['#default_value'] = variable_get('suitcase_config_level_3', NULL);
+    $form['site_info']['suitcase_config_level_3'] = $form['site_info']['site_slogan'];
+    unset($form['site_info']['site_slogan']);
+
+    $form['site_info']['site_mail']['#weight'] = 8;
+
+    $form['site_info']['suitcase_config_header_type']= array(
+      '#type' => 'hidden',
+      '#description' => 'The type of header to display',
+      '#default_value' => variable_get('suitcase_config_header_type', $default = 1),
+      '#weight' => 4,
+      '#attributes' => array('id' => 'edit-header-type'),
+    );
+
+    $form['#theme'] = array('suitcase_config_form');
+  }
+
+  // If the current theme is not suitcase_interim show the logo field.
+  else if (!_suitcase_config_suitcase_interim_is_default()) {
+    $logo_default = variable_get('suitcase_config_logo', array('id' => NULL, 'uri' => NULL));
     $form['logo'] = array(
       '#type' => 'managed_file',
       '#name' => 'suitcase_config_logo',
@@ -294,7 +254,7 @@ function suitcase_config_form($form, &$form_state) {
 function suitcase_config_form_submit($form, &$form_state) {
 
   // Process logo if the logo is defined in the form.
-  if ($form_state['values']['logo']) {
+  if (!empty($form_state['values']['logo'])) {
     $file = file_load($form_state['values']['logo']);
     if ($file->status != FILE_STATUS_PERMANENT) {
       // If the image isn't already managed, delete the old, manage it and set our variable.
@@ -386,6 +346,52 @@ function suitcase_config_form_validate($form, &$form_state) {
   if (!suitcase_config_valid_css_color($form_state['values']['suitcase_config_footer_color'])) {
     form_set_error('suitcase_config_footer_color', t('The color is invalid.'));
   }
+
+  if (_suitcase_config_suitcase_interim_is_default()) {
+    // Level 2
+    $suitcase_config_level_2 = $form_state['values']['suitcase_config_level_2'];
+    variable_set('suitcase_config_level_2', $suitcase_config_level_2);
+
+    // Level 3
+    $suitcase_config_level_3 = $form_state['values']['suitcase_config_level_3'];
+    variable_set('suitcase_config_level_3', $suitcase_config_level_3);
+
+    // Type of header
+    $header_type = $form_state['values']['suitcase_config_header_type'];
+    variable_set('suitcase_config_header_type', $header_type);
+
+    // Decide which level the site name should be set to
+    $site_name = NULL;
+    if (_suitcase_config_is_showing_this_header_level(3, $header_type)) {
+      $site_name = $suitcase_config_level_3;
+    }
+    elseif (_suitcase_config_is_showing_this_header_level(2, $header_type)) {
+      $site_name = $suitcase_config_level_2;
+    }
+
+    if (!$site_name) {
+      $site_name = 'Iowa State University';
+    }
+
+    variable_set('site_name', $site_name);
+
+    variable_set('suitcase_config_level_1_url', $form_state['values']['suitcase_config_level_1_url']);
+    variable_set('dept_url', $form_state['values']['dept_url']);
+
+    if (isset($form_state['values']['site_wordmark']) && $form_state['values']['site_wordmark'] != 0) {
+      $file = file_load($form_state['values']['site_wordmark']);
+      $file->status = FILE_STATUS_PERMANENT;
+      file_save($file);
+      file_usage_add($file, 'suitcase_interim', 'suitcase_interim', 1);
+
+      variable_set('site_wordmark', $file->uri);
+      variable_set('site_wordmark_fid', $file->fid);
+    }
+    else {
+      variable_set('site_wordmark', NULL);
+      variable_set('site_wordmark_fid', NULL);
+    }
+  }
 }
 
 function suitcase_config_valid_css_color($color) {
@@ -425,10 +431,10 @@ function suitcase_config_form_system_theme_settings_alter(&$form) {
 function suitcase_config_theme($existing, $type, $theme, $path) {
   $implementations = array();
   if (_suitcase_config_suitcase_interim_is_default()) {
-    $implementations['suitcase_config_site_information_form'] = array(
+    $implementations['suitcase_config_form'] = array(
       'render element' => 'form',
       // 'base hook' => 'page',
-      'template' => 'page--admin--config--system--site_information',
+      'template' => 'page--admin--config--theme_settings--suitcase_config',
       'path' => drupal_get_path('module', 'suitcase_config') . '/templates',
     );
   }

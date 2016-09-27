@@ -143,101 +143,100 @@
   	<div class="grid-6 vertical-tabs clearfix">
       <h4>ISU Official</h4>
   		<ul class="vertical-tabs-list">
-  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
+  			<li class="vertical-tab-button <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
   				<div>
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
-              <span class="field-name"><?php print $form['site_information']['level_2']['#value']; ?></span>
+              <span class="field-name"><?php print $form['site_info']['suitcase_config_level_2']['#value']; ?></span>
               <div class="container-12 clearfix">
                 <div class="grid-6">
-                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_information']['level_2']['#value']; ?>" placeholder="Enter Department Name">
+                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_info']['suitcase_config_level_2']['#value']; ?>" placeholder="Enter Department Name">
                 </div>
                 <div class="grid-6">
-                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['dept_url']['#value']; ?>" placeholder="Enter URL">
+                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_info']['dept_url']['#value']; ?>" placeholder="Enter URL">
                 </div>
               </div>
             </div>
             <hr class="hr-preview">
             <div class="field-container field-laboratory-name">
-              <span class="field-name"><?php print $form['site_information']['level_3']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_info']['suitcase_config_level_3']['#value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_info']['suitcase_config_level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
   				</div>
   			</li>
-  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#value'] == 2) print 'active'; ?>" data-img="true" data-dname="true" data-lname="false" data-type="2">
+  			<li class="vertical-tab-button <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 2) print 'active'; ?>" data-img="true" data-dname="true" data-lname="false" data-type="2">
           <div>
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-department-name">
-              <span class="field-name"><?php print $form['site_information']['level_2']['#value']; ?></span>
+              <span class="field-name"><?php print $form['site_info']['suitcase_config_level_2']['#value']; ?></span>
               <div class="container-12 clearfix">
                 <div class="grid-6">
-                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_information']['level_2']['#value']; ?>" placeholder="Enter Department Name">
+                  <input type="text" name="department-name" class="form-text form-text-watch" value="<?php print $form['site_info']['suitcase_config_level_2']['#value']; ?>" placeholder="Enter Department Name">
                 </div>
                 <div class="grid-6">
-                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['dept_url']['#value']; ?>" placeholder="Enter URL">
+                  <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_info']['dept_url']['#value']; ?>" placeholder="Enter URL">
                 </div>
               </div>
             </div>
           </div>
   			</li>
-  			<li class="vertical-tab-button <?php if ($form['site_information']['header_type']['#value'] == 3) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="3">
+  			<li class="vertical-tab-button <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 3) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="3">
           <div>
             <img src="<?php print $variables['suitcase_interim_wordmark_path']; ?>" height="24px">
             <div class="field-container field-laboratory-name">
-              <span class="field-name"><?php print $form['site_information']['level_3']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_info']['suitcase_config_level_3']['#value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_info']['suitcase_config_level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
   			</li>
       </ul>
       <h4>Custom (Non-official)</h4>
       <ul class="vertical-tabs-list">
-        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
+        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
           <div>
-            <img src="<?php print ($form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
+            <img src="<?php print ($form['site_info']['site_wordmark']['#file'])?file_create_url($form['site_info']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
             <div class="container-12 clearfix">
               <div class="grid-6">
-                <?php print render($form['site_information']['site_wordmark']); ?>
+                <?php print render($form['site_info']['site_wordmark']); ?>
               </div>
               <div class="grid-6">
-                <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_information']['level_1_url']['#value']; ?>" placeholder="Enter URL">
+                <input type="text" name="department-url" class="form-text form-url-watch" value="<?php print $form['site_info']['suitcase_config_level_1_url']['#value']; ?>" placeholder="Enter URL">
               </div>
             </div>
             <div class="field-container field-laboratory-name">
-              <span class="field-name"><?php print $form['site_information']['level_3']['#value']; ?></span>
-              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_information']['level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
+              <span class="field-name"><?php print $form['site_info']['suitcase_config_level_3']['#value']; ?></span>
+              <input type="text" name="laboratory-name" class="form-text form-text-watch" value="<?php print $form['site_info']['suitcase_config_level_3']['#value']; ?>" placeholder="Enter Laboratory Name">
             </div>
           </div>
         </li>
-        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_information']['header_type']['#value'] == 5) print 'active'; ?>" data-img="true" data-dname="false" data-lname="false" data-type="5">
+        <li class="vertical-tab-button changeable-image-file <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 5) print 'active'; ?>" data-img="true" data-dname="false" data-lname="false" data-type="5">
           <div>
-            <img src="<?php print ($form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
-            <?php print render($form['site_information']['site_wordmark']); ?>
+            <img src="<?php print ($form['site_info']['site_wordmark']['#file'])?file_create_url($form['site_info']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="change-me">
+            <?php print render($form['site_info']['site_wordmark']); ?>
           </div>
         </li>
   		</ul>
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
-    		<img src="<?php print ($form['site_information']['header_type']['#value'] > 3 && $form['site_information']['site_wordmark']['#file'])?file_create_url($form['site_information']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
+    		<img src="<?php print ($form['site_info']['suitcase_config_header_type']['#value'] > 3 && $form['site_info']['site_wordmark']['#file'])?file_create_url($form['site_info']['site_wordmark']['#file']->uri):$variables['suitcase_interim_wordmark_path']; ?>" height="24px" class="header-img">
         <header class="header-text">
-          <h1 class="site-name-level-1" <?php if ($form['site_information']['header_type']['#value'] > 2) print 'style="display:none"'; ?>><?php print $form['site_information']['level_2']['#value']; ?></h1>
-          <div class="site-name-level-2" <?php if ($form['site_information']['header_type']['#value'] == 2 || $form['site_information']['header_type']['#value'] == 5) print 'style="display:none"'; ?>>
+          <h1 class="site-name-level-1" <?php if ($form['site_info']['suitcase_config_header_type']['#value'] > 2) print 'style="display:none"'; ?>><?php print $form['site_info']['suitcase_config_level_2']['#value']; ?></h1>
+          <div class="site-name-level-2" <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 2 || $form['site_info']['suitcase_config_header_type']['#value'] == 5) print 'style="display:none"'; ?>>
           	<hr class="hr-preview">
-          	<h2><?php print $form['site_information']['level_3']['#value']; ?></h2>
+          	<h2><?php print $form['site_info']['suitcase_config_level_3']['#value']; ?></h2>
           </div>
         </header>
       </div>
   	</div>
   </div>
-  <?php print l(t('Change Suitcase Settings'), 'admin/config/theme_settings/suitcase_config'); ?>
   <?php print drupal_render_children($form); ?>
   <script type="text/javascript">
     (function($) {
       var $headerImg = $('.header-preview .header-img'),
         $headerLevel1 = $('.header-preview .site-name-level-1'),
         $headerLevel2 = $('.header-preview .site-name-level-2'),
-        headerType = <?php print $form['site_information']['header_type']['#value'] || 1; ?>,
+        headerType = <?php print $form['site_info']['suitcase_config_header_type']['#value'] || 1; ?>,
         defaultWordMarkPath = '<?php print $variables['suitcase_interim_wordmark_path']; ?>';
 
       $('.vertical-tab-button').click(function() {
