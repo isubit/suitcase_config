@@ -141,7 +141,7 @@
   <?php $variables['suitcase_interim_wordmark_path'] = base_path() . drupal_get_path('theme', 'suitcase_interim') . '/images/sprite.png'; ?>
   <div class="container-12 clearfix">
   	<div class="grid-6 vertical-tabs clearfix">
-      <h4>ISU Official</h4>
+      <!--<h4>ISU Official</h4>-->
   		<ul class="vertical-tabs-list">
   			<li class="vertical-tab-button <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 1) print 'active'; ?>" data-img="true" data-dname="true" data-lname="true" data-type="1">
   				<div>
@@ -190,6 +190,7 @@
           </div>
   			</li>
       </ul>
+      <!--
       <h4>Custom (Non-official)</h4>
       <ul class="vertical-tabs-list">
         <li class="vertical-tab-button changeable-image-file <?php if ($form['site_info']['suitcase_config_header_type']['#value'] == 4) print 'active'; ?>" data-img="true" data-dname="false" data-lname="true" data-type="4">
@@ -216,6 +217,7 @@
           </div>
         </li>
   		</ul>
+  		-->
   	</div>
   	<div class="grid-6">
       <div class="header-preview">
