@@ -112,6 +112,22 @@ function suitcase_config_install() {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function suitcase_config_uninstall() {
+  variable_del('suitcase_config_logo');
+  variable_del('dept_url');
+  variable_del('suitcase_config_background_color');
+  variable_del('suitcase_config_primary_text_color');
+  variable_del('suitcase_config_secondary_text_color');
+  variable_del('suitcase_config_header_color');
+  variable_del('suitcase_config_header_border_color');
+  variable_del('suitcase_config_footer_color');
+  variable_del('suitcase_config_blackbar_display');
+  variable_del('suitcase_config_isu_nameplate_display');
+}
+
+/**
  * Copy logo from Omega config system to suitcase_config.
  */
 function suitcase_config_update_7201() {
