@@ -115,7 +115,10 @@ function suitcase_frontpanel_default_page_manager_pages() {
     $pane->style = array(
       'settings' => NULL,
     );
-    $pane->css = array();
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'panel-pane-overflow',
+    );
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
@@ -137,7 +140,10 @@ function suitcase_frontpanel_default_page_manager_pages() {
     $pane->style = array(
       'settings' => NULL,
     );
-    $pane->css = array();
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'panel-pane-overflow',
+    );
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
@@ -159,7 +165,10 @@ function suitcase_frontpanel_default_page_manager_pages() {
     $pane->style = array(
       'settings' => NULL,
     );
-    $pane->css = array();
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'panel-pane-nostyle',
+    );
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
@@ -181,7 +190,10 @@ function suitcase_frontpanel_default_page_manager_pages() {
     $pane->style = array(
       'settings' => NULL,
     );
-    $pane->css = array();
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'panel-pane-nostyle',
+    );
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
