@@ -52,7 +52,7 @@ function suitcase_config_install() {
     ->condition('theme', 'suitcase')
     ->execute();
   db_update('block')
-    ->fields(array('region' => 'footer_first', 'status' => '1', 'title' => '<none>', ))
+    ->fields(array('region' => 'footer_third', 'status' => '1', 'title' => '<none>', ))
     ->condition('delta', 'menu-footer')
     ->condition('theme', 'suitcase')
     ->execute();
@@ -169,4 +169,15 @@ function suitcase_config_update_7201() {
       }
     }
   }
+}
+
+/**
+ *  Moving menu-footer block to the footer-third region
+ */
+function suitcase_config_update_7202() {
+  db_update('block')
+    ->fields(array('region' => 'footer_third', 'status' => '1', 'title' => '<none>', ))
+    ->condition('delta', 'menu-footer')
+    ->condition('theme', 'suitcase')
+    ->execute();
 }
