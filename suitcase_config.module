@@ -230,7 +230,7 @@ function suitcase_config_form_submit($form, &$form_state) {
   $css .= suitcase_config_add_style(array('background-color' => $form_state['values']['suitcase_config_footer_color']), 'body');
   $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_primary_text_color']), '.section h1,a,a:link,a:visited');
   $css .= suitcase_config_add_style(array('color' => $form_state['values']['suitcase_config_secondary_text_color']), '.site-name a:hover,.site-name-slogan a');
-  
+
   // Write styles to, e.g., files/suitcase_config/style.css
   $dir = 'public://suitcase_config';
   file_prepare_directory($dir, FILE_CREATE_DIRECTORY);
@@ -292,8 +292,8 @@ function suitcase_config_add_style($styles, $selector) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * 
- * Since suitcase_config is handling the Omega logo functions, remove those 
+ *
+ * Since suitcase_config is handling the Omega logo functions, remove those
  * from the theme settings form and point user to the Suitcase Settings page.
  */
 function suitcase_config_form_system_theme_settings_alter(&$form) {
@@ -304,5 +304,17 @@ function suitcase_config_form_system_theme_settings_alter(&$form) {
     $form['logo']['settings']['logo_upload']['#access'] = FALSE;
     $form['logo']['#description'] = t('With the Suitcase theme enabled, these settings are available at !Suitcase Settings.', array('!Suitcase Settings' => l(t('Suitcase Settings'), 'admin/config/theme_settings/suitcase_config')));
     $form['theme_settings']['toggle_logo']['#access'] = FALSE;
-  } 
+  }
+}
+
+/**
+ * Implements hook_post_features_enable_feature
+ */
+function suitcase_config_post_features_rebuild($component) {
+  // Place the menu-category block
+  db_update('block')
+    ->fields(array('region' => 'side_menu', 'status' => '1', ))
+    ->condition('delta', 'menu-category')
+    ->condition('theme', 'suitcase')
+    ->execute();
 }
